@@ -1,11 +1,13 @@
 -------------------------------------------------------------------------------
 --                           Receptor de intefaz SDI                         --
 -------------------------------------------------------------------------------
--- Purpose  :
+-- Purpose  : Top level del receptor SDI, contiene a la etapa de transceiver y 
+--            y de protocolo.
 --
 -- Author   : Joaquin Ulloa
 --
--- Comments :
+-- Comments : El tamaño de los datos está pensado para calidad 3G, por lo que
+--            de usarlo en SD se deben dejar abiertos los 10 bits superores.
 -------------------------------------------------------------------------------
 
 library ieee;
