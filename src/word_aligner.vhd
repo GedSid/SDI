@@ -2,12 +2,12 @@
 --                                  Word Aligner                              --
 --------------------------------------------------------------------------------
 -- Purpose        : Alinea un stream de bits en serie a palabras validas del
---                protocolo.
+--                  protocolo.
 --
 -- Author         : Joaquin Ulloa
 --
--- Comments       : Se procesan los datos deserealizados: arma las palabras,
---                decodifica de 10b a 8b y se sincroniza.
+-- Comments       : Se procesan los datos deserealizados: arma las palabras y
+--                  se sincroniza.
 --                
 --------------------------------------------------------------------------------
 

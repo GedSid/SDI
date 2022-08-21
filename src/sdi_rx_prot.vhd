@@ -38,59 +38,74 @@ end entity;
 architecture rtl of sdi_rx_prot is
 
   --
-  signal packet_data_in : std_logic_vector(7 downto 0);
-  signal packet_data_in_valid : std_logic;
-  signal packet_data_out : std_logic_vector(7 downto 0);
-  signal packet_data_out_valid : std_logic;
-  signal ts_sop : std_logic;
-  signal ts_eop : std_logic;
-  signal ts_locked : std_logic;
-  signal ts_188_204n : std_logic;
-  signal ts_error : std_logic;
+  signal packet_data_in         : std_logic_vector(7 downto 0);
+  signal packet_data_in_valid   : std_logic;
+  signal packet_data_out        : std_logic_vector(7 downto 0);
+  signal packet_data_out_valid  : std_logic;
+  signal ts_sop                 : std_logic;
+  signal ts_eop                 : std_logic;
+  signal ts_locked              : std_logic;
+  signal ts_188_204n            : std_logic;
+  signal ts_error               : std_logic;
 
-  signal dv_descram_align : std_logic;
+  signal dv_descram_align   : std_logic;
   signal data_descram_align : std_logic_vector(DATA_W - 1 downto 0);
-  signal scram_start : std_logic;
+  signal scram_start        : std_logic;
 
-  signal dv_aligned : std_logic;
+  signal dv_aligned   : std_logic;
   signal data_aligned : std_logic_vector(DATA_W - 1 downto 0);
 
   component par_scrambler is
     generic (
-      Data_Width : integer := DATA_W; -- Input/output data width
-      Polynomial_Width : integer := POLY_W -- Polynomial width
+      Data_Width        : integer := DATA_W; -- Input/output data width
+      Polynomial_Width  : integer := POLY_W -- Polynomial width
     );
     port (
-      rst : in std_logic; -- Async reset
-      clk : in std_logic; -- System clock
-      scram_rst : in std_logic; -- Scrambler reset, use for initialization.
-      polynomial : in std_logic_vector(POLY_W - 1 downto 0); -- Polynomial. Example: 1+x^4+x^6+x^7 represent as "11010001"
-      data_in : in std_logic_vector(DATA_W - 1 downto 0); -- Data input
-      scram_en : in std_logic; -- Input valid
-      data_out : out std_logic_vector(DATA_W - 1 downto 0); -- Data output
-      out_valid : out std_logic -- Output valid
+      rst         : in std_logic; -- Async reset
+      clk         : in std_logic; -- System clock
+      scram_rst   : in std_logic; -- Scrambler reset, use for initialization.
+      polynomial  : in std_logic_vector(POLY_W - 1 downto 0); -- Polynomial. Example: 1+x^4+x^6+x^7 represent as "11010001"
+      data_in     : in std_logic_vector(DATA_W - 1 downto 0); -- Data input
+      scram_en    : in std_logic; -- Input valid
+      data_out    : out std_logic_vector(DATA_W - 1 downto 0); -- Data output
+      out_valid   : out std_logic -- Output valid
     );
   end component;
 
 begin
+
+-- -------------------------------------------------------------------------------
+-- -- Input register
+--   in_reg_p: process(rst, clk) esto no necesitaría reset porque está en el data path que se depura
+--   begin
+--     if (rst = '1') then
+--       data_reg_i  <= (others => '0');
+--       dv_reg_i  <= '0';
+--     elsif rising_edge(clk) then
+--       data_reg_i  <= data_i;
+--       dv_reg_i  <= dv_i;
+--     end if;
+--   end process;
+
+  -- descrambler_in <= (sd_rxdata & "0000000000") when mode_SD_int = '1' else rxdata;
 
   -----------------------------------------------------------------------------
   -- NZRI and Descrambler - Prealign
   -----------------------------------------------------------------------------
   descram_u : par_scrambler
   generic map(
-    Data_Width => DATA_W,
-    Polynomial_Width => POLY_W
+    Data_Width        => DATA_W,
+    Polynomial_Width  => POLY_W
   )
   port map(
-    rst => rst,
-    clk => clk_sys,
-    polynomial => polynomial,
-    data_in => data_i,
-    scram_en => dv_i,
-    scram_rst => scram_start,
-    data_out => data_descram_align,
-    out_valid => dv_descram_align
+    rst         => rst,
+    clk         => clk_sys,
+    polynomial  => polynomial,
+    data_in     => data_i,
+    scram_en    => dv_i,
+    scram_rst   => scram_start,
+    data_out    => data_descram_align,
+    out_valid   => dv_descram_align
   );
 
   -----------------------------------------------------------------------------
@@ -102,20 +117,20 @@ begin
   -- Este bloque busca dos comma characters consecutivos en el stream de datos
   -- de salida del transceiver y desplaza los bits para alinearlos correctamente
   trs_aligner_u : entity work.word_aligner
-    generic map(
-      INVALID_PERIOD => 148500
-    )
-    port map(
-      rst => rst,
-      clk => clk_sys,
-      data_i => data_descram_align,
-      dv_i => dv_descram_align,
-      pattern => trs_pattern,
-      data_out => data_aligned,
-      data_out_valid => dV_aligned,
-      locked => ts_locked_o,
-      pattern_found => open --pattern_found
-    );
+  generic map(
+    INVALID_PERIOD => 148500
+  )
+  port map(
+    rst             => rst,
+    clk             => clk_sys,
+    data_i          => data_descram_align,
+    dv_i            => dv_descram_align,
+    pattern         => trs_pattern,
+    data_out        => data_aligned,
+    data_out_valid  => dV_aligned,
+    locked          => ts_locked_o,
+    pattern_found   => open --pattern_found
+  );
 
   -----------------------------------------------------------------------------
   -- Match TRS State Machine
