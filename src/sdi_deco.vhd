@@ -1,26 +1,16 @@
--- Module Description:
+-------------------------------------------------------------------------------
+--                                  Decoder SDI                              --
+-------------------------------------------------------------------------------
+-- Purpose  : Decoder de NRZ a NRZI y descrambler del receptor SDI.
 --
--- This is a multi-rate SDI decoder module that supports both SD-SDI (SMPTE 
--- 259M)and HD-SDI (SMPTE 292M).
--- 
--- SDI specifies that the serial bit stream shall be encoded in two ways. First,
--- a generator polynomial of x^9 + x^4 + 1 is used to generate a scrambled data_nrzi 
--- bit sequence. Next, a generator polynomial of x + 1 is used to produce the 
--- final polarity free data_nrz sequence which is transmitted over the physical 
--- layer.
--- 
--- The decoder module described in this file sits at the receiving end of the
--- SDI link and reverses the two encoding steps to extract the original data. 
--- First, the x + 1 generator polynomial is used to convert the bit stream from 
--- data_nrz to data_nrzi. Next, the x^9 + x^4 + 1 generator polynomial is used to 
--- descramble the data.
--- 
--- When running in HD-SDI mode (sd_nohd = 0), 20 bits are decoded every clock 
--- cycle. When running in SD-SDI mode (sd_nohd = 1), the 10-bit SD-SDI data must 
--- be placed on the MS 10 bits of the d port. Ten bits are decoded every clock 
--- cycle and the decoded 10 bits are output on the 10 MS bits of the q port.
--- 
---------------------------------------------------------------------------------
+-- Author   : Joaquin Ulloa
+--
+-- Comments : Se decodifican los datos de entrada: primero transforma los datos
+--            de formato NZR a NZRI, con el polinomio X+1 y luego los descramblea
+--            con el polinomio x^9+x^4+1. El encoder hacer el proceso opuesto.
+--            Funciona tanto para datos SD, como HD y 3G en tiempo real, en el
+--            primer caso se deben usar los 10 MSB.
+-------------------------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -33,8 +23,8 @@ entity multi_sdi_decoder is
     DATA_W : positive := 20
   );
   port (
-    clk   : in  std_logic;    -- word rate clock (74.25 MHz)
-    rst   : in  std_logic;    -- async reset
+    clk     : in  std_logic;    -- word rate clock (74.25 MHz)
+    rst     : in  std_logic;    -- async reset
     sd_nohd : in  std_logic;    -- 0 = HD, 1 = SD
     data_i  : in  std_logic_vector(DATA_W-1 downto 0);
     data_o  : out std_logic_vector(DATA_W-1 downto 0)
