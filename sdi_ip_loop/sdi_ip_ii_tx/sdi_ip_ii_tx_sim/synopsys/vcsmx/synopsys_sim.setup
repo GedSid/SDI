@@ -1,0 +1,23 @@
+
+WORK > DEFAULT
+DEFAULT:               ./libraries/work/                 
+work:                  ./libraries/work/                 
+u_tx_phy_rst_ctrl:     ./libraries/u_tx_phy_rst_ctrl/    
+u_phy:                 ./libraries/u_phy/                
+u_phy_adapter:         ./libraries/u_phy_adapter/        
+sdi_ip_ii_tx:          ./libraries/sdi_ip_ii_tx/         
+altera_ver:            ./libraries/altera_ver/           
+lpm_ver:               ./libraries/lpm_ver/              
+sgate_ver:             ./libraries/sgate_ver/            
+altera_mf_ver:         ./libraries/altera_mf_ver/        
+altera_lnsim_ver:      ./libraries/altera_lnsim_ver/     
+cyclonev_ver:          ./libraries/cyclonev_ver/         
+cyclonev_hssi_ver:     ./libraries/cyclonev_hssi_ver/    
+cyclonev_pcie_hip_ver: ./libraries/cyclonev_pcie_hip_ver/
+altera:                ./libraries/altera/               
+lpm:                   ./libraries/lpm/                  
+sgate:                 ./libraries/sgate/                
+altera_mf:             ./libraries/altera_mf/            
+altera_lnsim:          ./libraries/altera_lnsim/         
+cyclonev:              ./libraries/cyclonev/             
+LIBRARY_SCAN = TRUE

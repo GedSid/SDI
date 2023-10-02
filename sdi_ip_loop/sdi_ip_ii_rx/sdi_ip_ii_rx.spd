@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="sdi_ip_ii_rx_sim/altera_reset_controller/mentor/altera_reset_controller.v"
+   type="VERILOG_ENCRYPT"
+   library="rx_rst_coreclk_sync"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_reset_controller/mentor/altera_reset_synchronizer.v"
+   type="VERILOG_ENCRYPT"
+   library="rx_rst_coreclk_sync"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_reset_controller/aldec/altera_reset_controller.v"
+   type="VERILOG_ENCRYPT"
+   library="rx_rst_coreclk_sync"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_reset_controller/aldec/altera_reset_synchronizer.v"
+   type="VERILOG_ENCRYPT"
+   library="rx_rst_coreclk_sync"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/mentor/src_hdl/sdi_ii_rx_phy_mgmt.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/mentor/src_hdl/sdi_ii_rx_sample.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/mentor/src_hdl/sdi_ii_rx_xcvr_ctrl_native.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/mentor/src_hdl/sdi_ii_rx_xcvr_interface.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/mentor/src_hdl/sdi_ii_rx_vid_std_detect.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/mentor/src_hdl/sdi_ii_rx_rate_detect.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/aldec/src_hdl/sdi_ii_rx_phy_mgmt.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/aldec/src_hdl/sdi_ii_rx_sample.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/aldec/src_hdl/sdi_ii_rx_xcvr_ctrl_native.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/aldec/src_hdl/sdi_ii_rx_xcvr_interface.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/aldec/src_hdl/sdi_ii_rx_vid_std_detect.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_phy_mgmt/aldec/src_hdl/sdi_ii_rx_rate_detect.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_phy_mgmt"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_rx_protocol.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_hd_crc.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_hd_extract_ln.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_3gb_demux.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_trs_aligner.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_descrambler.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_format.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_receive.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_vpid_extract.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_trsmatch.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_hd_dual_link.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_fifo_retime.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/mentor/src_hdl/sdi_ii_rx_prealign.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_rx_protocol.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_hd_crc.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_hd_extract_ln.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_3gb_demux.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_trs_aligner.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_descrambler.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_format.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_receive.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_vpid_extract.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_trsmatch.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_hd_dual_link.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_fifo_retime.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_rx_protocol/aldec/src_hdl/sdi_ii_rx_prealign.v"
+   type="VERILOG_ENCRYPT"
+   library="u_rx_protocol"
+   simulator="riviera" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/altera_xcvr_functions.sv"
+   type="SYSTEM_VERILOG"
+   library="u_rx_phy_rst_ctrl" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/mentor/altera_xcvr_functions.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_rx_phy_rst_ctrl"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/alt_xcvr_resync.sv"
+   type="SYSTEM_VERILOG"
+   library="u_rx_phy_rst_ctrl" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/mentor/alt_xcvr_resync.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_rx_phy_rst_ctrl"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/altera_xcvr_reset_control.sv"
+   type="SYSTEM_VERILOG"
+   library="u_rx_phy_rst_ctrl" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/alt_xcvr_reset_counter.sv"
+   type="SYSTEM_VERILOG"
+   library="u_rx_phy_rst_ctrl" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/mentor/altera_xcvr_reset_control.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_rx_phy_rst_ctrl"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/mentor/alt_xcvr_reset_counter.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_rx_phy_rst_ctrl"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/plain_files.txt"
+   type="OTHER"
+   library="u_rx_phy_rst_ctrl" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/mentor_files.txt"
+   type="OTHER"
+   library="u_rx_phy_rst_ctrl" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/cadence_files.txt"
+   type="OTHER"
+   library="u_rx_phy_rst_ctrl" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/synopsys_files.txt"
+   type="OTHER"
+   library="u_rx_phy_rst_ctrl" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_reset_control/aldec_files.txt"
+   type="OTHER"
+   library="u_rx_phy_rst_ctrl" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/altera_xcvr_functions.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/altera_xcvr_functions.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/sv_reconfig_bundle_to_xcvr.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/sv_reconfig_bundle_to_ip.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/sv_reconfig_bundle_merger.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/sv_reconfig_bundle_to_xcvr.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/sv_reconfig_bundle_to_ip.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/sv_reconfig_bundle_merger.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_xcvr_h.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_xcvr_avmm_csr.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_tx_pma_ch.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_tx_pma.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_rx_pma.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_pma.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_pcs_ch.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_pcs.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_xcvr_avmm.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_xcvr_native.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_xcvr_plls.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_xcvr_data_adapter.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_reconfig_bundle_to_basic.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_reconfig_bundle_to_xcvr.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_xcvr_h.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_xcvr_avmm_csr.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_tx_pma_ch.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_tx_pma.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_rx_pma.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_pma.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_pcs_ch.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_pcs.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_xcvr_avmm.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_xcvr_native.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_xcvr_plls.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_xcvr_data_adapter.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_reconfig_bundle_to_basic.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_reconfig_bundle_to_xcvr.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_hssi_8g_rx_pcs_rbc.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_hssi_8g_tx_pcs_rbc.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_hssi_common_pcs_pma_interface_rbc.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_hssi_common_pld_pcs_interface_rbc.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_hssi_pipe_gen1_2_rbc.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_hssi_rx_pcs_pma_interface_rbc.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_hssi_rx_pld_pcs_interface_rbc.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_hssi_tx_pcs_pma_interface_rbc.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/av_hssi_tx_pld_pcs_interface_rbc.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_hssi_8g_rx_pcs_rbc.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_hssi_8g_tx_pcs_rbc.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_hssi_common_pcs_pma_interface_rbc.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_hssi_common_pld_pcs_interface_rbc.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_hssi_pipe_gen1_2_rbc.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_hssi_rx_pcs_pma_interface_rbc.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_hssi_rx_pld_pcs_interface_rbc.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_hssi_tx_pcs_pma_interface_rbc.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/av_hssi_tx_pld_pcs_interface_rbc.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/alt_reset_ctrl_lego.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/alt_reset_ctrl_tgx_cdrauto.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/alt_xcvr_resync.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/alt_reset_ctrl_lego.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/alt_reset_ctrl_tgx_cdrauto.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/alt_xcvr_resync.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/alt_xcvr_csr_common_h.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/alt_xcvr_csr_common.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/alt_xcvr_csr_pcs8g_h.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/alt_xcvr_csr_pcs8g.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/alt_xcvr_csr_selector.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/alt_xcvr_mgmt2dec.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/altera_wait_generate.v"
+   type="VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/alt_xcvr_csr_common_h.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/alt_xcvr_csr_common.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/alt_xcvr_csr_pcs8g_h.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/alt_xcvr_csr_pcs8g.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/alt_xcvr_csr_selector.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/alt_xcvr_mgmt2dec.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/altera_wait_generate.v"
+   type="VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/altera_xcvr_native_av_functions_h.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/altera_xcvr_native_av.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/altera_xcvr_data_adapter_av.sv"
+   type="SYSTEM_VERILOG"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/altera_xcvr_native_av_functions_h.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/altera_xcvr_native_av.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor/altera_xcvr_data_adapter_av.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="u_phy"
+   simulator="modelsim" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/plain_files.txt"
+   type="OTHER"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/mentor_files.txt"
+   type="OTHER"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/cadence_files.txt"
+   type="OTHER"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/synopsys_files.txt"
+   type="OTHER"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/altera_xcvr_native_cv/aldec_files.txt"
+   type="OTHER"
+   library="u_phy" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii_phy_adapter/sdi_ii_phy_adapter.v"
+   type="VERILOG"
+   library="u_phy_adapter" />
+ <file
+   path="sdi_ip_ii_rx_sim/sdi_ii/sdi_ii_0001.vhd"
+   type="VHDL"
+   library="sdi_ip_ii_rx" />
+ <file path="sdi_ip_ii_rx_sim/sdi_ip_ii_rx.vhd" type="VHDL" />
+ <topLevel name="sdi_ip_ii_rx" />
+ <deviceFamily name="cyclonev" />
+</simPackage>

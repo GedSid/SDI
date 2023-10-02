@@ -1,0 +1,29 @@
+	component sdi_ip_ii_rx is
+		port (
+			rx_dataout              : out std_logic_vector(19 downto 0);                    -- export
+			rx_dataout_valid        : out std_logic;                                        -- export
+			rx_f                    : out std_logic_vector(0 downto 0);                     -- export
+			rx_v                    : out std_logic_vector(0 downto 0);                     -- export
+			rx_h                    : out std_logic_vector(0 downto 0);                     -- export
+			rx_ap                   : out std_logic_vector(0 downto 0);                     -- export
+			rx_format               : out std_logic_vector(4 downto 0);                     -- export
+			rx_eav                  : out std_logic_vector(0 downto 0);                     -- export
+			rx_trs                  : out std_logic_vector(0 downto 0);                     -- export
+			rx_align_locked         : out std_logic;                                        -- export
+			rx_trs_locked           : out std_logic_vector(0 downto 0);                     -- export
+			rx_frame_locked         : out std_logic;                                        -- export
+			rx_ln                   : out std_logic_vector(10 downto 0);                    -- export
+			rx_clkout               : out std_logic;                                        -- clk
+			rx_coreclk_is_ntsc_paln : in  std_logic                     := 'X';             -- export
+			rx_clkout_is_ntsc_paln  : out std_logic;                                        -- export
+			rx_rst_proto_out        : out std_logic;                                        -- export
+			rx_rst                  : in  std_logic                     := 'X';             -- reset
+			rx_coreclk              : in  std_logic                     := 'X';             -- clk
+			xcvr_refclk             : in  std_logic                     := 'X';             -- clk
+			sdi_rx                  : in  std_logic                     := 'X';             -- export
+			rx_pll_locked           : out std_logic;                                        -- export
+			reconfig_to_xcvr        : in  std_logic_vector(69 downto 0) := (others => 'X'); -- reconfig_to_xcvr
+			reconfig_from_xcvr      : out std_logic_vector(45 downto 0)                     -- reconfig_from_xcvr
+		);
+	end component sdi_ip_ii_rx;
+

@@ -1,0 +1,5 @@
+sdi_ip_loop/db/*
+sdi_ip_loop/incremental_db/*
+sdi_ip_loop/output_files/*
+sdi_ip_loop/sdi_ip_ii_?x/sdi_ip_ii_?x_example_design/*
+sdi_ip_loop/simulation/modelsim/*

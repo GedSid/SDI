@@ -1,0 +1,4 @@
+./mentor/altera_xcvr_functions.sv
+./mentor/alt_xcvr_resync.sv
+./mentor/altera_xcvr_reset_control.sv
+./mentor/alt_xcvr_reset_counter.sv
