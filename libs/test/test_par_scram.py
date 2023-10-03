@@ -67,5 +67,5 @@ async def test_par_scrambler(dut):
     assert data_out == expected_out
 
     # Finish the test
-    for _ in range(2):
+    for _ in range(3):
         await RisingEdge(dut.clk)
