@@ -29,7 +29,7 @@ async def init_test(dut):
 
 
 @cocotb.test()
-async def test_par_scrambler(dut):
+async def test_par_scram(dut):
 
     # Asign the polynomial to the DUT
     dut.Polynomial.value = POLY
