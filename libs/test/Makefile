@@ -22,7 +22,7 @@ VHDL_SOURCES += $(PWD)/../par_scrambler.vhd
 TOPLEVEL = par_scrambler
 
 # MODULE is the basename of the Python test file
-MODULE = test_par_scram
+MODULE = test_par_scrambler
 
 # include cocotb's make rules to take care of the simulator setup
 include $(shell cocotb-config --makefiles)/Makefile.sim
