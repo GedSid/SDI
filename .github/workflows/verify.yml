@@ -3,7 +3,28 @@ name: Verify
 on: [push]
 
 jobs:
-  build-linux:
+
+  syntax:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          pip3 install --upgrade pip
+          pip3 install flake8
+      
+      - name: Verify syntax quality
+        run: |
+        flake8 --append-config=.flake8 .
+
+  test-cores:
     runs-on: ubuntu-latest
 
     steps:

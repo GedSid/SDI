@@ -1,10 +1,6 @@
-# This file is public domain, it can be freely copied without restrictions.
-# SPDX-License-Identifier: CC0-1.0
-
-# Makefile
-
-# defaults
+# This argument defines the simulator to be use
 SIM ?= GHDL
+# This argiment defines the language to be use
 TOPLEVEL_LANG ?= vhdl
 
 PWD=$(shell pwd)
@@ -26,9 +22,6 @@ else ifeq ($(TOPLEVEL_LANG),verilog)
 else
     $(error A valid value (verilog or vhdl) was not provided for TOPLEVEL_LANG=$(TOPLEVEL_LANG))
 endif
-# VHDL_SOURCES += $(PWD)/../par_scrambler.vhd
-# use VHDL_SOURCES for VHDL files
-# use VERILOG_SOURCES for VERILOG files
 
 # TOPLEVEL is the name of the toplevel module in your Verilog or VHDL file
 TOPLEVEL = par_scrambler

@@ -1,0 +1,10 @@
+[flake8]
+max-line-length=150
+exclude=.git, .github, src, tb, doc, venv
+ignore=
+    E402
+    ; # module level import not at top of file
+    E731
+    ; # use of lambda
+    W504
+    ; # line break before binary operator
