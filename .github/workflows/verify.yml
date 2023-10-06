@@ -22,7 +22,7 @@ jobs:
       
       - name: Verify syntax quality
         run: |
-        flake8 --append-config=.flake8 .
+          flake8 --append-config=.flake8 .
 
   test-cores:
     runs-on: ubuntu-latest
