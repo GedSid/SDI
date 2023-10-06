@@ -1,0 +1,32 @@
+name: Verify
+
+on: [push]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: |
+        pip3 install --upgrade pip
+        pip3 install -r requirements.txt
+        sudo apt install -y ghdl
+
+    - name: Verify with cocotb & ghdl
+      run: |
+        make
