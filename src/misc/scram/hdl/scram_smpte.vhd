@@ -11,9 +11,9 @@ entity scram_smpte is
     rst       : in  std_logic; -- async
     scram_en  : in  std_logic;
     data_i    : in  std_logic_vector(DATA_HD_W-1 downto 0);
-    p_scram   : in  std_logic_vector(POLY_ORDER-1 downto 0);  -- previously scrambled data input
+    d_p_scram : in  std_logic_vector(POLY_ORDER-1 downto 0);  -- previously scrambled data input
     data_o    : out std_logic_vector(DATA_HD_W-1 downto 0);
-    i_scram   : out std_logic_vector(POLY_ORDER-1 downto 0)   -- intermediate scrambled data output
+    d_i_scram : out std_logic_vector(POLY_ORDER-1 downto 0)  -- intermediate scrambled data output
   );
 end scram_smpte;
 
@@ -25,7 +25,7 @@ architecture rtl of scram_smpte is
 
 begin
 
-  data_in <= (data_temp(4 downto 0) & p_scram(POLY_ORDER - 1 downto 0));
+  data_in <= (data_temp(4 downto 0) & d_p_scram(POLY_ORDER - 1 downto 0));
 
   scram_poly_9_4_p:
   process (all)
@@ -41,12 +41,11 @@ begin
     if (rst = '1') then
       data_reg <= (others => '0');
     elsif (rising_edge(clk)) then
-      data_reg <= data_temp when scram_en = '1' else
-        data_i;
+      data_reg <= data_temp when scram_en = '1' else data_i;
     end if;
   end process;
 
-  data_o <= data_reg;
-  i_scram <= data_temp(DATA_HD_W-1 downto 1);
+  data_o <= data_reg(DATA_HD_W-1 downto 1);
+  d_i_scram <= data_temp(DATA_HD_W-1 downto 1);
 
 end rtl;

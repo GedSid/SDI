@@ -10,9 +10,9 @@ entity nrz_2_nrzi is
     rst       : in  std_logic;                      -- async
     nrzi_en   : in  std_logic;
     data_i    : in  std_logic_vector(DATA_HD_W-1 downto 0);
-    p_nrzi    : in  std_logic;                      -- MSB of previously converted NRZI word
+    d_p_nrzi  : in  std_logic;                      -- MSB of previously converted NRZI word
     data_o    : out std_logic_vector(DATA_HD_W-1 downto 0);
-    i_nrzi    : out std_logic                       -- intermediate nrzi data output
+    d_i_nrzi  : out std_logic                       -- intermediate nrzi data output
   );
 end nrz_2_nrzi;
 
@@ -29,7 +29,7 @@ begin
   enc_nrz_nrzi_p:
   process(all)
   begin
-      data_temp(0) <= p_nrzi xor data_i(0);
+      data_temp(0) <= d_p_nrzi xor data_i(0);
       for j in 1 to DATA_HD_W-1 loop
           data_temp(j) <= data_nrzi(j-1) xor data_i(j);
       end loop;
@@ -46,6 +46,6 @@ begin
   end process;
 
   data_o <= nrzi_reg;
-  i_nrzi <= data_temp(DATA_HD_W-1);
+  d_i_nrzi <= data_temp(DATA_HD_W-1);
 
 end rtl;
