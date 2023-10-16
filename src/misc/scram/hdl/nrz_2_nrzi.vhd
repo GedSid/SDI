@@ -27,7 +27,7 @@ begin
   data_nrzi <= data_temp when (nrzi_en = '1') else data_i;
 
   enc_nrz_nrzi_p:
-  process(all)
+  process(data_i, d_p_nrzi, data_nrzi)
   begin
       data_temp(0) <= d_p_nrzi xor data_i(0);
       for j in 1 to DATA_HD_W-1 loop

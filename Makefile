@@ -1,5 +1,5 @@
 EXAMPLES := libs/test \
-            # simple_dff \
+            src/misc/scram/tests \
 
 .PHONY: $(EXAMPLES)
 
