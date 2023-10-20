@@ -1,5 +1,4 @@
-EXAMPLES := libs/test \
-            src/misc/scram/tests \
+EXAMPLES := src/misc/scram/tests \
 
 .PHONY: $(EXAMPLES)
 
