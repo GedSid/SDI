@@ -2,30 +2,34 @@ library ieee;
   use ieee.std_logic_1164.all;
 
 entity crc18_smpte is
+  generic(
+    DATA_W      : positive := 10;
+    POLY_ORDER  : positive := 18
+  );
   port(
     clk     : in  std_logic;
     rst     : in  std_logic;
     crc_clr : in  std_logic;
     crc_en  : in  std_logic;
-    data_i  : in  std_logic_vector(9 downto 0);
-    crc_o   : out std_logic_vector(17 downto 0)
+    data_i  : in  std_logic_vector(DATA_W-1 downto 0);
+    crc_o   : out std_logic_vector(POLY_ORDER-1 downto 0)
   );
 end crc18_smpte;
 
 architecture rtl of crc18_smpte is
 
-  signal temp     : std_logic_vector(9 downto 0);
-  signal crc_new  : std_logic_vector(17 downto 0);
-  signal crc_old  : std_logic_vector(17 downto 0);
-  signal crc_reg  : std_logic_vector(17 downto 0) := (others => '0');
+  signal temp     : std_logic_vector(DATA_W-1 downto 0);
+  signal crc_new  : std_logic_vector(POLY_ORDER-1 downto 0);
+  signal crc_old  : std_logic_vector(POLY_ORDER-1 downto 0);
+  signal crc_reg  : std_logic_vector(POLY_ORDER-1 downto 0) := (others => '0');
 
 begin
 
   crc_old <= (others => '0') when crc_clr = '1' else crc_reg;
 
-  xor_p: process(all)
+  in_xor_p: process(all)
   begin
-    for i in 0 to 9 loop
+    for i in 0 to DATA_W-1 loop
         temp(i) <= data_i(i) xor crc_old(i);
     end loop;
   end process;
@@ -43,7 +47,7 @@ begin
       crc_new(i) <= (temp(i - 3) xor temp(i - 4)) xor temp(i - 8);
     end loop;
     crc_new(13) <= temp(9) xor temp(5);
-    for i in 14 to 17 loop
+    for i in 14 to POLY_ORDER loop
       crc_new(i) <= temp(i - 8);
     end loop;
   end process;
