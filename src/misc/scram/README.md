@@ -5,7 +5,32 @@ This module encodes 20 bits, 10 luma (y) and 10 chroma (c), for SD it only encod
 
 This module instantiates the SMPTE Encoder `smpte_encoder` and the NRZ to NRZI Encoder `nrz_2_nrzi`.
 
-The output is 20 bit, but for SD only the LS 10 b are valid.
+The output is 20 bit, but for SD only the LS 10 b are valid. The module uses 74.25 MHz clock.
+
+
+```mermaid
+flowchart LR
+
+  In_C(10 bits chroma)==>Scrambler_C
+  In_Y(10 bit luma)==>Scrambler_Y
+
+  subgraph SDI-Encoder
+    direction LR
+    Scrambler_C==>NRZI_C
+    Scrambler_C-->NRZI_Y
+    Scrambler_Y==>NRZI_Y
+    Scrambler_Y-->NRZI_C
+  end
+
+  NRZI_C==>Out(20 bit encoded value)
+  NRZI_Y==>Out
+  
+
+  style In_C fill:#149dac
+  style In_Y fill:#149dac
+  style Out fill:#149dac
+  style SDI-Encoder fill:#cc6699
+```
 
 ### SMPTE Scrambler
 
