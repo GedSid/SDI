@@ -5,14 +5,14 @@ use ieee.numeric_std.all;
 entity sdi_ip_loop is
 	port (
 		tx_rst                  : in  std_logic                      := '0';             --                  tx_rst.reset
-		-- tx_enable_crc           : in  std_logic                      := '0';             --           tx_enable_crc.export
-		-- tx_enable_ln            : in  std_logic                      := '0';             --            tx_enable_ln.export
+		tx_enable_crc           : in  std_logic                      := '0';             --           tx_enable_crc.export
+		tx_enable_ln            : in  std_logic                      := '0';             --            tx_enable_ln.export
 		-- tx_ln                   : in  std_logic_vector(10 downto 0)  := (others => '0'); --                   tx_ln.export
 		tx_datain               : in  std_logic_vector(19 downto 0)  := (others => '0'); --               tx_datain.export
 		tx_datain_valid         : in  std_logic                      := '0';             --         tx_datain_valid.export
 		tx_trs                  : in  std_logic                      := '0';             --                  tx_trs.export
 		tx_dataout_valid        : out std_logic;                                         --        tx_dataout_valid.export
-		tx_pclk                 : in  std_logic                      := '0';             --                 tx_pclk.clk
+		-- tx_pclk                 : in  std_logic                      := '0';             --                 tx_pclk.clk
 		tx_coreclk              : in  std_logic                      := '0';             --              tx_coreclk.clk
 		rx_dataout              : out std_logic_vector(19 downto 0);                     --              rx_dataout.export
 		rx_dataout_valid        : out std_logic;                                         --        rx_dataout_valid.export
@@ -36,7 +36,7 @@ entity sdi_ip_loop is
 		xcvr_refclk             : in  std_logic                      := '0';             --             xcvr_refclk.clk
 		sdi_tx                  : out std_logic;                                         --                  sdi_tx.export
 		-- tx_pll_locked           : out std_logic;                                         --           tx_pll_locked.export
-		-- tx_clkout               : out std_logic;                                         --               tx_clkout.clk
+		tx_clkout               : out std_logic;                                         --               tx_clkout.clk
 		sdi_rx                  : in  std_logic                      := '0'             --                  sdi_rx.export
 		-- rx_pll_locked           : out std_logic;                                         --           rx_pll_locked.export
 		-- reconfig_to_xcvr        : in  std_logic_vector(139 downto 0) := (others => '0'); --        reconfig_to_xcvr.reconfig_to_xcvr
@@ -48,22 +48,22 @@ architecture rtl of sdi_ip_loop is
 	
 	component sdi_ip_ii_tx is
 	port (
-		tx_rst             : in  std_logic                      := '0';             --             tx_rst.reset
-		tx_enable_crc      : in  std_logic                      := '0';             --      tx_enable_crc.export
-		tx_enable_ln       : in  std_logic                      := '0';             --       tx_enable_ln.export
-		tx_ln              : in  std_logic_vector(10 downto 0)  := (others => '0'); --              tx_ln.export
-		tx_datain          : in  std_logic_vector(19 downto 0)  := (others => '0'); --          tx_datain.export
-		tx_datain_valid    : in  std_logic                      := '0';             --    tx_datain_valid.export
-		tx_trs             : in  std_logic                      := '0';             --             tx_trs.export
-		tx_dataout_valid   : out std_logic;                                         --   tx_dataout_valid.export
-		tx_pclk            : in  std_logic                      := '0';             --            tx_pclk.clk
-		tx_coreclk         : in  std_logic                      := '0';             --         tx_coreclk.clk
-		xcvr_refclk        : in  std_logic                      := '0';             --        xcvr_refclk.clk
-		sdi_tx             : out std_logic;                                         --             sdi_tx.export
-		tx_pll_locked      : out std_logic;                                         --      tx_pll_locked.export
-		tx_clkout          : out std_logic;                                         --          tx_clkout.clk
-		reconfig_to_xcvr   : in  std_logic_vector(139 downto 0) := (others => '0'); --   reconfig_to_xcvr.reconfig_to_xcvr
-		reconfig_from_xcvr : out std_logic_vector(91 downto 0)                      -- reconfig_from_xcvr.reconfig_from_xcvr
+		tx_rst             : in  std_logic                      := '0';
+		tx_enable_crc      : in  std_logic                      := '0';
+		tx_enable_ln       : in  std_logic                      := '0';
+		tx_ln              : in  std_logic_vector(10 downto 0)  := (others => '0');
+		tx_datain          : in  std_logic_vector(19 downto 0)  := (others => '0');
+		tx_datain_valid    : in  std_logic                      := '0';
+		tx_trs             : in  std_logic                      := '0';
+		tx_dataout_valid   : out std_logic;
+		tx_pclk            : in  std_logic                      := '0';
+		tx_coreclk         : in  std_logic                      := '0';
+		xcvr_refclk        : in  std_logic                      := '0';
+		sdi_tx             : out std_logic;
+		tx_pll_locked      : out std_logic;
+		tx_clkout          : out std_logic;
+		reconfig_to_xcvr   : in  std_logic_vector(139 downto 0) := (others => '0');
+		reconfig_from_xcvr : out std_logic_vector(91 downto 0)
 	);
 	end component;
 	
@@ -96,25 +96,27 @@ architecture rtl of sdi_ip_loop is
 		);
 	end component;
 
+	signal tx_pclk            : std_logic;
+
 begin
 
 	-- Instantiate the Unit Under Test (UUT)
 	sdi_tx_u: component sdi_ip_ii_tx
 	port map(
-		tx_rst             => tx_rst,
-		tx_enable_crc      => '0',
-		tx_enable_ln       => '0',
-		tx_ln              => (others => '0'),
+		tx_rst             => tx_rst,            -- This signal is active high and level sensitive. This reset signal must be synchronous to tx_coreclk clock domain.
+		tx_enable_crc      => tx_enable_crc,     -- Enables CRC insertion for all modes except SD-SDI.
+		tx_enable_ln       => tx_enable_ln,      -- Enables LN insertion for all modes except SD-SDI.
+		tx_ln              => (others => '0'),   -- Transmitter line number.
 		tx_datain          => tx_datain,
-		tx_datain_valid    => tx_datain_valid,
-		tx_trs             => '0',
+		tx_datain_valid    => tx_datain_valid,   --  Transmitter parallel data valid. The timing (H: High, L: Low) must be synchronous to tx_pclk clock domain and have the following settings: SD-SDI = 1H 4L 1H 5L, HD-SDI = H, 3G-SDI = H
+		tx_trs             => tx_trs,
 		tx_dataout_valid   => tx_dataout_valid,
-		tx_pclk            => tx_pclk,
+		tx_pclk            => tx_pclk,           -- Transmitter parallel clock input. Driven by the tx_clkout signal.
 		tx_coreclk         => tx_coreclk,
 		xcvr_refclk        => xcvr_refclk,
 		sdi_tx             => sdi_tx,
 		tx_pll_locked      => open,
-		tx_clkout          => open,
+		tx_clkout          => tx_pclk,
 		reconfig_to_xcvr   => (others => '0'),
 		reconfig_from_xcvr => open
 	);
