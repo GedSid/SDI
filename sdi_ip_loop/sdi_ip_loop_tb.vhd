@@ -36,7 +36,9 @@ architecture behavior of sdi_ip_loop_tb is
   signal sdi_rx             : std_logic;
   -- signal ln           : std_logic := '0';
   signal start        : std_logic := '0';
+  signal start_reg    : std_logic := '0';
   signal tx_trs       : std_logic := '0';
+  signal tx_trs_reg   : std_logic := '0';
   signal rst          : std_logic := '1';
   signal clk          : std_logic := '0';
 
@@ -55,8 +57,10 @@ architecture behavior of sdi_ip_loop_tb is
   -- constant CLK_SLOW_T : time := 31.25 ns;
 
   TYPE t_char_file IS FILE OF character;
-  signal ts_din       : std_logic_vector(7 downto 0);
-  constant FILENAME   : string := "G:\dwsample_ts_360p.ts";  -- Transport stream file to read as input
+  signal ts_din       : std_logic_vector(19 downto 0);
+  -- constant FILENAME   : string := "~\dwsample_ts_360p.ts";
+  constant FILENAME   : string := "G:\sdi_ip_loop\sdi_ip_loop\dwsample_ts_360p.ts";
+  -- constant FILENAME   : string := "G:\dwsample_ts_360p.ts";  -- Transport stream file to read as input
   constant N_INVALID_BYTES  : integer := 2;          -- Number of invalid bytes between valid bytes
   constant TS_W       : integer := 188;          -- Number of invalid bytes between valid bytes
   signal ts_dvalin    : std_logic;
@@ -70,13 +74,14 @@ begin
     variable byte_count         : integer;
     variable invalid_byte_count : integer;
   begin
+    wait until (start);
     while not endfile(file_in) loop
       byte_count := 0;
       while (byte_count < TS_W) loop
         wait until falling_edge(clk);
         byte_count := byte_count + 1;
         read(file_in, char_buffer);
-        ts_din <= std_logic_vector(to_unsigned(character'pos(char_buffer), 8));
+        ts_din <= std_logic_vector(to_unsigned(character'pos(char_buffer), 20));
         if (byte_count = 1) then
           ts_syncin <= '1';
         else
@@ -98,12 +103,12 @@ begin
   sdi_ip_ii_u: component sdi_ip_loop
   port map(
     tx_rst             => rst,
-    tx_enable_crc      => start,
-    tx_enable_ln       => start,
+    tx_enable_crc      => '0',
+    tx_enable_ln       => '0',
     -- tx_ln              => (others => '0'),
     tx_datain          => data_in,
     tx_datain_valid    => dv_in,
-    tx_trs             => tx_trs,
+    tx_trs             => tx_trs_reg,
     tx_dataout_valid   => tx_dv_out,
     -- tx_pclk            => clk,
     tx_coreclk         => clk,
@@ -160,12 +165,12 @@ begin
     report "start of test" severity note;
 
     wait until (rising_edge(tx_clkout));
-    for i in 0 to 499 loop
-      wait until (rising_edge(tx_clkout));
-      dv_in  <= '1';
-      data_in   <= std_logic_vector(to_unsigned(i+1, 20));
+    -- for i in 0 to 499 loop
+    --   wait until (rising_edge(tx_clkout));
+    --   dv_in  <= '1';
+    --   data_in   <= std_logic_vector(to_unsigned(i+1, 20));
       --assert data_in report "data in" severity note;
-    end loop;
+    -- end loop;
     wait until (rising_edge(tx_clkout));
     -- dv_in <= '0';
 
@@ -176,4 +181,19 @@ begin
     wait;
   end process;
 
+  out_reg_p: process (clk, rst)
+  begin
+    if (rst = '1') then
+      dv_in <= '0';
+      tx_trs_reg <= '0';
+      data_in <= (others => '0');
+    elsif (rising_edge(clk)) then
+      if (start = '1') then
+        dv_in  <= ts_dvalin;
+        tx_trs_reg <= tx_trs;
+        data_in   <= ts_din;
+      end if;
+    end if;
+  end process;
+  
 end;
