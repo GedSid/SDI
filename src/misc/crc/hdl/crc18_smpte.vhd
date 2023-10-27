@@ -27,14 +27,14 @@ begin
 
   crc_old <= (others => '0') when crc_clr = '1' else crc_reg;
 
-  in_xor_p: process(all)
+  in_xor_p: process(data_i, crc_old)
   begin
     for i in 0 to DATA_W-1 loop
         temp(i) <= data_i(i) xor crc_old(i);
     end loop;
   end process;
 
-  crc_p: process (all)
+  crc_p: process (crc_old, temp)
   begin
     for i in 0 to 2 loop
       crc_new(i) <= crc_old(i + 10);
@@ -52,7 +52,7 @@ begin
     end loop;
   end process;
 
-  out_reg_p: process (clk, rst)
+  out_reg_p: process(clk, rst)
   begin
     if (rst = '1') then
       crc_reg <= (others => '0');
