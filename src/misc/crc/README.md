@@ -32,6 +32,12 @@ La segunda función es insertar el CRC en la secuencia de datos después del nú
 
 Este módulo tiene una latencia de 2 ciclos de reloj, uno de ellos debido al `crc18_smpte`.
 
+
+|  Bit   |  9   |  8   |  7   |  6   |  5   |  4   |  3   |  2   |  1   |  0   |
+|--------|------|------|------|------|------|------|------|------|------|------|
+| Word 0 |~crc8 | crc8 | crc7 | crc6 | crc5 | crc4 | crc3 | crc2 | crc1 | crc0 |
+| Word 1 |~crc17| crc16| crc15| crc14| crc13| crc12| crc11| crc10| crc9 | crc8 |
+
 ### CRC SMPTE de 18 bits
 
 Este módulo `crc18_smpte` calcula el CRC de 18 bits definido en el estándar SMPTE-292M (HD-SDI). Está diseñado con el polinomio *x^18+x^5+x^4+1*. El módulo tiene una latencia de un ciclo de reloj. La entrada `crc_clr` debe estar activada con la primera palabra de un nuevo cálculo.
