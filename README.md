@@ -31,3 +31,11 @@ flowchart LR
     style HDL fill:#149dac
     style TB fill:#cc6699
 ```
+
+# Sub-Modules
+
+![CRC](https://github.com/GedSid/SDI/blob/crc/src/misc/crc/README.md)
+
+![Scrambler](https://github.com/GedSid/SDI/blob/crc/src/misc/scram/README.md)
+
+
