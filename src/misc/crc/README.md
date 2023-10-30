@@ -1,20 +1,39 @@
-## sarasa
+## CRC
 
+```mermaid
+flowchart LR
 
+  In_C(10 bits chroma)==>CRC_C
+  In_Y(10 bit luma)==>CRC_Y
 
-### CRC Insert
+  subgraph CRC-Insert
+    direction LR
+    CRC_C==>Insertion
+    CRC_Y==>Insertion
+  end
 
-  This module `crc_insert` has 2 main functions. The first one, es to generate timing control signals for the CRC. Acording to HD-SDI standard, the CRC must being with the first word after the SAV and end after the second line number word.
+  Insertion==>Out_C
+  Insertion==>Out_Y
 
-  The `crc_en` signal should be asserted during the XYZ word of the SAV since the next word after the SAV XYZ word is the first word to be included into the new CRC calculation.
+  style In_C fill:#149dac
+  style In_Y fill:#149dac
+  style Out_C fill:#149dac
+  style Out_Y fill:#149dac
+  style CRC-Insert fill:#cc6699
+```
 
-  The second one, to insert the CRC in the data stream after the line number.
-  the 18 bit CRC value is inserted into two 10 bit words. To that end the 8th bit is negated and inserted at the beginning of the first word.
+### Inserción de CRC
 
-  This module has 2 clocks of delay, 1 is because of the `crc18_smpte`.
+Este módulo `crc_insert` tiene 2 funciones principales. La primera es generar señales de control de temporización para el CRC. Según el estándar HD-SDI, el CRC debe comenzar con la primera palabra después de SAV y finalizar después de la segunda palabra del número de línea.
 
-### CRC 18 bit SMPTE
+La señal `crc_en` debe estar activada durante la palabra XYZ de SAV, ya que la siguiente palabra después de la palabra XYZ de SAV es la primera palabra que se incluirá en el cálculo del nuevo CRC.
 
-This module `crc18_smpte` calculates the 18 bits CRC define the SMPTE-292M (HD-SDI) standards. It is design with the polynomial *x^18+x^5+x^4+1*. The module has one clock of latency. The `crc_clr` input must be asserted with the first word of a new calculation.
+La segunda función es insertar el CRC en la secuencia de datos después del número de línea. El valor CRC de 18 bits se inserta en dos palabras de 10 bits. Para lograrlo, el octavo bit se niega e inserta al principio de la primera palabra.
+
+Este módulo tiene una latencia de 2 ciclos de reloj, uno de ellos debido al `crc18_smpte`.
+
+### CRC SMPTE de 18 bits
+
+Este módulo `crc18_smpte` calcula el CRC de 18 bits definido en el estándar SMPTE-292M (HD-SDI). Está diseñado con el polinomio *x^18+x^5+x^4+1*. El módulo tiene una latencia de un ciclo de reloj. La entrada `crc_clr` debe estar activada con la primera palabra de un nuevo cálculo.
 
 ---------------------------------------------------------------------
