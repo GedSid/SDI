@@ -36,7 +36,7 @@ entity sdi_ip_ii_rx is
 end entity sdi_ip_ii_rx;
 
 architecture rtl of sdi_ip_ii_rx is
-	component sdi_ii_0001 is
+	component sdi_ii_0001_rx is
 		generic (
 			FAMILY               : string  := "STRATIX V";
 			VIDEO_STANDARD       : string  := "hd";
@@ -79,11 +79,12 @@ architecture rtl of sdi_ip_ii_rx is
 			reconfig_to_xcvr        : in  std_logic_vector(69 downto 0) := (others => 'X'); -- reconfig_to_xcvr
 			reconfig_from_xcvr      : out std_logic_vector(45 downto 0)                     -- reconfig_from_xcvr
 		);
-	end component sdi_ii_0001;
+	end component sdi_ii_0001_rx;
 
 begin
 
-	sdi_ip_ii_rx_inst : component sdi_ii_0001
+	-- sdi_ip_ii_rx_inst : entity sdi_ip_ii_rx.sdi_ii_0001
+	sdi_ip_ii_rx_inst : component sdi_ii_0001_rx
 		generic map (
 			FAMILY               => "Cyclone V",
 			VIDEO_STANDARD       => "hd",

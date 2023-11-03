@@ -66,8 +66,6 @@ set_global_assignment -name EDA_TEST_BENCH_RUN_SIM_FOR "100 us" -section_id sdi_
 set_global_assignment -name EDA_TEST_BENCH_FILE sdi_ip_loop_tb.vhd -section_id sdi_ip_loop_tb
 set_global_assignment -name QIP_FILE sdi_ip_ii_tx/sdi_ip_ii_tx.qip
 set_global_assignment -name SIP_FILE sdi_ip_ii_tx/sdi_ip_ii_tx.sip
-set_global_assignment -name QIP_FILE sdi_ip_ii_rx/sdi_ip_ii_rx.qip
-set_global_assignment -name SIP_FILE sdi_ip_ii_rx/sdi_ip_ii_rx.sip
 set_global_assignment -name VHDL_FILE sdi_ip_loop.vhd
 set_global_assignment -name VHDL_TEST_BENCH_FILE sdi_ip_loop_tb.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

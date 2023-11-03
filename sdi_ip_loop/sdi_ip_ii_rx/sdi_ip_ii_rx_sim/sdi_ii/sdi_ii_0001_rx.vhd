@@ -9,7 +9,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity sdi_ii_0001 is
+entity sdi_ii_0001_rx is
 	generic (
 		FAMILY               : string  := "Cyclone V";
 		VIDEO_STANDARD       : string  := "hd";
@@ -52,9 +52,9 @@ entity sdi_ii_0001 is
 		reconfig_to_xcvr        : in  std_logic_vector(69 downto 0) := (others => '0'); --        reconfig_to_xcvr.reconfig_to_xcvr
 		reconfig_from_xcvr      : out std_logic_vector(45 downto 0)                     --      reconfig_from_xcvr.reconfig_from_xcvr
 	);
-end entity sdi_ii_0001;
+end entity sdi_ii_0001_rx;
 
-architecture rtl of sdi_ii_0001 is
+architecture rtl of sdi_ii_0001_rx is
 	component sdi_ii_phy_adapter is
 		generic (
 			FAMILY            : string  := "STRATIX V";

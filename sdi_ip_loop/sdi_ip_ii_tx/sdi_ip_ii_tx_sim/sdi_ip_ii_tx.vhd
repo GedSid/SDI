@@ -67,6 +67,7 @@ architecture rtl of sdi_ip_ii_tx is
 
 begin
 
+	-- sdi_ip_ii_rx_inst : entity sdi_ip_ii_tx.sdi_ii_0001
 	sdi_ip_ii_tx_inst : component sdi_ii_0001
 		generic map (
 			FAMILY               => "Cyclone V",

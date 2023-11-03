@@ -4,7 +4,7 @@ set_global_assignment -entity "sdi_ip_ii_rx" -library "lib_sdi_ip_ii_rx" -name I
 set_global_assignment -library "lib_sdi_ip_ii_rx" -name SPD_FILE [file join $::quartus(sip_path) "sdi_ip_ii_rx.spd"]
 
 set_global_assignment -library "lib_sdi_ip_ii_rx" -name MISC_FILE [file join $::quartus(sip_path) "sdi_ip_ii_rx_sim/sdi_ip_ii_rx.vhd"]
-set_global_assignment -library "lib_sdi_ip_ii_rx" -name MISC_FILE [file join $::quartus(sip_path) "sdi_ip_ii_rx_sim/sdi_ii/sdi_ii_0001.vhd"]
+set_global_assignment -library "lib_sdi_ip_ii_rx" -name MISC_FILE [file join $::quartus(sip_path) "sdi_ip_ii_rx_sim/sdi_ii/sdi_ii_0001_rx.vhd"]
 set_global_assignment -library "lib_sdi_ip_ii_rx" -name MISC_FILE [file join $::quartus(sip_path) "sdi_ip_ii_rx_sim/altera_reset_controller/mentor/altera_reset_controller.v"]
 set_global_assignment -library "lib_sdi_ip_ii_rx" -name MISC_FILE [file join $::quartus(sip_path) "sdi_ip_ii_rx_sim/altera_reset_controller/mentor/altera_reset_synchronizer.v"]
 set_global_assignment -library "lib_sdi_ip_ii_rx" -name MISC_FILE [file join $::quartus(sip_path) "sdi_ip_ii_rx_sim/altera_reset_controller/aldec/altera_reset_controller.v"]
