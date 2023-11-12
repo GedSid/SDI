@@ -7,7 +7,7 @@ entity ln_insert is
     VERT_POS_W  : positive := 11
   );
   port (
-    insert_ln_en  : in  std_logic;
+    ln_ins_en     : in  std_logic;
     ln_word0      : in  std_logic;
     ln_word1      : in  std_logic;
     data_c_i      : in  std_logic_vector(DATA_W-1 downto 0);
@@ -24,7 +24,7 @@ begin
 
   process(all)
   begin
-    if (insert_ln_en = '1') then 
+    if (ln_ins_en = '1') then 
       if(ln_word0 = '1') then
         data_c_o <= (not ln_i(6) & ln_i(6 downto 0) & "00");
         data_y_o <= (not ln_i(6) & ln_i(6 downto 0) & "00");

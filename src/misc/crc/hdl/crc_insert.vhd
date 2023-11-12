@@ -9,7 +9,7 @@ entity crc_insert is
   port(
     clk         : in  std_logic;
     rst         : in  std_logic;
-    din_rdy     : in  std_logic;
+    d_rdy_i     : in  std_logic;
     sav         : in  std_logic;
     eav_dly     : in  std_logic;
     data_c_i    : in  std_logic_vector(DATA_W-1 downto 0);
@@ -32,13 +32,13 @@ architecture rtl of crc_insert is
 
 begin
 
-  crc_timing_ctrl_u: process(clk, rst)
+  crc_timing_ctrl_p: process(clk, rst)
   begin
     if (rst = '1') then
       crc_en <= '0';
       crc_clr <= '0';
     elsif (rising_edge(clk)) then
-      if (din_rdy = '1') then
+      if (d_rdy_i = '1') then
         crc_clr <= sav;
         if (sav = '1') then
           crc_en <= '1';
@@ -50,7 +50,7 @@ begin
   end process;
 
   -- Instantiate the CRC generators
-  crc_en_rdy <= din_rdy and crc_en;
+  crc_en_rdy <= d_rdy_i and crc_en;
 
   crc_y_u: entity work.crc18_smpte
   generic map(
