@@ -11,8 +11,7 @@ entity sdi_tx_out is
     clk           : in  std_logic;  -- 148.5 MHz (HD) or 297 MHz (SD)
     rst           : in  std_logic;
     d_rdy_i       : in  std_logic;
-    -- ce:             in  std_logic_vector(1 downto 0);               -- runs at scrambler data rate:..
-    --                                                                 --   27 MHz, 74.25 MHz or 148.5 MHz
+    clk_en        : in  std_logic_vector(1 downto 0);               -- runs at scrambler data rate: 27 MHz, 74.25 MHz or 148.5 MHz
     mode          : in  std_logic_vector(1 downto 0); -- HD/3GA=00, SD=01
     data_ay_i     : in  std_logic_vector(DATA_W-1 downto 0);               -- SD; HD, 3G, dual-link A Y
     data_ac_i     : in  std_logic_vector(DATA_W-1 downto 0);               -- HD, 3G, dual-link A C
@@ -80,20 +79,22 @@ begin
       ins_edh_r <= '0';
       eav_dly   <= (others => '0');
     elsif rising_edge(clk) then
-      if (d_rdy_i = '1') then
-        data_ay_r    <= data_ay_i;
-        data_ac_r    <= data_ac_i;
-        data_by_r    <= data_by_i;
-        data_bc_r    <= data_bc_i;
-        ln_a_r    <= ln_a;
-        ln_b_r    <= ln_b;
-        mode_r    <= mode;
-        eav_r     <= eav;
-        sav_r     <= sav;
-        ins_crc_r <= insert_crc;
-        ls_ins_r  <= insert_ln;
-        ins_edh_r <= insert_edh;
-        eav_dly   <= (eav_dly(2 downto 0) & eav_r);
+      if (clk_en(0) = '1') then
+        if (d_rdy_i = '1') then
+          data_ay_r    <= data_ay_i;
+          data_ac_r    <= data_ac_i;
+          data_by_r    <= data_by_i;
+          data_bc_r    <= data_bc_i;
+          ln_a_r    <= ln_a;
+          ln_b_r    <= ln_b;
+          mode_r    <= mode;
+          eav_r     <= eav;
+          sav_r     <= sav;
+          ins_crc_r <= insert_crc;
+          ls_ins_r  <= insert_ln;
+          ins_edh_r <= insert_edh;
+          eav_dly   <= (eav_dly(2 downto 0) & eav_r);
+        end if;
       end if;
     end if;
   end process;
@@ -141,6 +142,7 @@ begin
   port map (
     clk         => clk,
     rst         => rst,
+    clk_en      => clk_en(0),
     d_rdy_i     => d_rdy_i,
     sav         => sav,
     eav_dly     => eav_dly(1),
@@ -161,6 +163,7 @@ begin
   port map (
     clk         => clk,
     rst         => rst,
+    clk_en      => clk_en(0),
     d_rdy_i     => d_rdy_i,
     sav         => sav,
     eav_dly     => eav_dly(1),
@@ -173,7 +176,7 @@ begin
     data_y_o    => data_crc_scram_by
   );
 
-  -- Por ahora NO hay EDH!!!
+  -- Por ahora NO hay EDH!!! creo que necesita el segundo clock enable
 
 -- Scrambler input selector. In SD, HD, and 3G level A modes, they simply pass data_ay_i and data_ac_i through.
   data_mux_y <= data_crc_scram_ac when mode_3gb = '1' and d_rdy_i = '0' else
@@ -195,7 +198,7 @@ begin
   port map (
     clk         => clk,
     rst         => rst,
-    -- ce          => ce(0),
+    clk_en      => clk_en(0),
     hd_notsd    => mode_sd,
     nrzi_en     => '1',
     scram_en    => '1',
@@ -204,12 +207,29 @@ begin
     data_o      => scram_out
   );
 
+-- -- SD 11X replicator
+--   BITREP : entity work.sdi_bitrep_20b
+--   port map (
+--     clk         => clk,
+--     rst         => rst_r(2),
+--     ce          => ce(0),
+--     d           => scram_out(19 downto 10),
+--     q           => sd_bit_rep_out,
+--     align_err   => align_err
+--   );
+
+  -- ce_align_err <= align_err and mode_sd;
+
   out_r_p: process(clk)
   begin
     if (rst = '1') then
       data_tx_o_r <= (others => '0');
     elsif (rising_edge(clk)) then
-      data_tx_o_r <= scram_out;
+      if (mode_sd = '1') then
+        -- data_tx_o_r <= sd_bit_rep_out;
+      elsif (clk_en(0) = '1') then
+        data_tx_o_r <= scram_out;
+      end if;
     end if;
   end process;
 

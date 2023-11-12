@@ -9,6 +9,7 @@ entity crc_insert is
   port(
     clk         : in  std_logic;
     rst         : in  std_logic;
+    clk_en      : in  std_logic;
     d_rdy_i     : in  std_logic;
     sav         : in  std_logic;
     eav_dly     : in  std_logic;
@@ -38,12 +39,14 @@ begin
       crc_en <= '0';
       crc_clr <= '0';
     elsif (rising_edge(clk)) then
-      if (d_rdy_i = '1') then
-        crc_clr <= sav;
-        if (sav = '1') then
-          crc_en <= '1';
-        elsif (eav_dly = '1') then
-          crc_en <= '0';
+      if (clk_en = '1') then
+        if (d_rdy_i = '1') then
+          crc_clr <= sav;
+          if (sav = '1') then
+            crc_en <= '1';
+          elsif (eav_dly = '1') then
+            crc_en <= '0';
+          end if;
         end if;
       end if;
     end if;
@@ -60,6 +63,7 @@ begin
   port map (
     clk     => clk,
     rst     => rst,
+    clk_en  => clk_en,
     crc_en  => crc_en_rdy,
     crc_clr => crc_clr,
     data_i  => data_y_i,
@@ -74,6 +78,7 @@ begin
   port map (
     clk     => clk,
     rst     => rst,
+    clk_en  => clk_en,
     crc_en  => crc_en_rdy,
     crc_clr => crc_clr,
     data_i  => data_c_i,

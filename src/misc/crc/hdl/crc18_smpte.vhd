@@ -9,6 +9,7 @@ entity crc18_smpte is
   port(
     clk     : in  std_logic;
     rst     : in  std_logic;
+    clk_en  : in  std_logic;
     crc_clr : in  std_logic;
     crc_en  : in  std_logic;
     data_i  : in  std_logic_vector(DATA_W-1 downto 0);
@@ -57,8 +58,10 @@ begin
     if (rst = '1') then
       crc_reg <= (others => '0');
     elsif (rising_edge(clk)) then
-      if (crc_en = '1') then
-        crc_reg <= crc_new;
+      if (clk_en = '1') then
+        if (crc_en = '1') then
+          crc_reg <= crc_new;
+        end if;
       end if;
     end if;
   end process;
