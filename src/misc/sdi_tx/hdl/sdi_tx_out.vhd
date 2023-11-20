@@ -59,6 +59,8 @@ architecture rtl of sdi_tx_out is
   signal scram_out      : std_logic_vector(2*DATA_W-1 downto 0) := (others => '0');
   signal data_mux_y     : std_logic_vector(DATA_W-1 downto 0) := (others => '0');
   signal data_tx_o_r    : std_logic_vector(2*DATA_W-1 downto 0) := (others => '0');
+  signal sd_bit_rep_out : std_logic_vector(2*DATA_W-1 downto 0) := (others => '0');
+  signal align_err      : std_logic := '0';
 
 begin
 
@@ -207,18 +209,21 @@ begin
     data_o      => scram_out
   );
 
--- -- SD 11X replicator
---   BITREP : entity work.sdi_bitrep_20b
---   port map (
---     clk         => clk,
---     rst         => rst_r(2),
---     ce          => ce(0),
---     d           => scram_out(19 downto 10),
---     q           => sd_bit_rep_out,
---     align_err   => align_err
---   );
+-- SD 11X replicator
+  bit_rep_u: entity work.sdi_bit_rep
+  generic map(
+    DATA_W      => DATA_W
+  )
+  port map (
+    clk         => clk,
+    rst         => rst,
+    clk_en      => clk_en(0),
+    data_i      => scram_out(19 downto 10),
+    data_o      => sd_bit_rep_out,
+    align_err   => align_err
+  );
 
-  -- ce_align_err <= align_err and mode_sd;
+  ce_align_err <= align_err and mode_sd;
 
   out_r_p: process(clk)
   begin
@@ -226,7 +231,7 @@ begin
       data_tx_o_r <= (others => '0');
     elsif (rising_edge(clk)) then
       if (mode_sd = '1') then
-        -- data_tx_o_r <= sd_bit_rep_out;
+        data_tx_o_r <= sd_bit_rep_out;
       elsif (clk_en(0) = '1') then
         data_tx_o_r <= scram_out;
       end if;

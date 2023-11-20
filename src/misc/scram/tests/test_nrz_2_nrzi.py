@@ -1,11 +1,14 @@
-import sys
-sys.path.insert(0, '../../../../src/misc/scram/model')
-from nrz_2_nrzi_model import nrz_2_nrzi_model, nrz_2_nrzi_bit
+# import sys
+# sys.path.insert(0, '../../../../src/misc/scram/model')
+# from nrz_2_nrzi_model import nrz_2_nrzi_model, nrz_2_nrzi_bit
+from src.misc.scram.model.nrz_2_nrzi_model import nrz_2_nrzi_bit
 
 import cocotb
 from cocotb import start_soon
 from cocotb.clock import Clock
 from cocotb.triggers import RisingEdge # , Timer
+from cocotb.regression import TestFactory
+import pytest
 
 
 CLK_PERIOD = 13.47  # ns (74.25 MHz)
@@ -29,8 +32,8 @@ def binary_number_to_array(binary_number):
   return binary_array
 
 
-@cocotb.test()
-async def nrzi_basic_test(dut):
+# @cocotb.test()
+async def test_nrzi_basic(dut):
   """Test 1 word"""
 
   input_bits = 0b1010101010
@@ -51,7 +54,8 @@ async def nrzi_basic_test(dut):
 
   assert binary_number_to_array(dut.data_o.value)[:9] == output_bit[-9:], f"NRZ to NRZI consersion result is incorrect: {binary_number_to_array(dut.data_o.value)[:9]} != {output_bit[-9:]}"
 
-
+tf = TestFactory(test_nrzi_basic, "nrzi_2_nrz")
+tf.generate_tests()
 # @cocotb.test()
 # async def nrzi_multiple_test(dut):
 #   """Test 4 word"""
@@ -93,4 +97,4 @@ async def nrzi_basic_test(dut):
 #     assert output_bits == output, f"NRZ to NRZI consersion result is incorrect: {output_bits} != {output}"
 
 if __name__ == "__main__":
-  nrzi_basic_test()
+  test_nrzi_basic()

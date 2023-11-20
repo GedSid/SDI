@@ -3,7 +3,7 @@ library ieee;
 
 entity sdi_bit_rep is
   generic(
-    DATA_W      : positive := 10
+    DATA_W    : positive := 10
   );
   port (
     clk       : in  std_logic;
@@ -11,37 +11,26 @@ entity sdi_bit_rep is
     clk_en    : in  std_logic;
     data_i    : in  std_logic_vector(DATA_W-1 downto 0);
     data_o    : out std_logic_vector(2*DATA_W-1 downto 0);
-    align_err : out std_logic := '0' 
+    align_err : out std_logic := '0'
   );
 end sdi_bit_rep;
 
 architecture rtl of sdi_bit_rep is
 
-  function repeat (n: natural; v: std_logic) return std_logic_vector is
-      variable result: std_logic_vector(0 to n-1);
-  begin
-      for i in 0 to n-1 loop
-          result(i) := v;
-      end loop;
-      return result;
-  end;
-
   attribute fsm_encoding : string;
-  
-  subtype state is std_logic_vector(3 downto 0);
 
-  signal d0       : std_logic_vector(DATA_W-1 downto 0);
-  signal d1       : std_logic_vector(DATA_W-1 downto 0);
-  signal d2       : std_logic_vector(DATA_W-1 downto 0);
-  signal d3       : std_logic_vector(DATA_W-1 downto 0);
-  signal d4       : std_logic_vector(DATA_W-1 downto 0);
-  signal d5       : std_logic_vector(DATA_W-1 downto 0);
-  signal d6       : std_logic_vector(DATA_W-1 downto 0);
-  signal d7       : std_logic_vector(DATA_W-1 downto 0);
-  signal d8       : std_logic_vector(DATA_W-1 downto 0);
-  signal d9       : std_logic_vector(DATA_W-1 downto 0);
-  signal d10      : std_logic_vector(DATA_W-1 downto 0);
-  signal d11      : std_logic_vector(DATA_W-1 downto 0);
+  signal d0       : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d1       : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d2       : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d3       : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d4       : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d5       : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d6       : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d7       : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d8       : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d9       : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d10      : std_logic_vector(2*DATA_W-1 downto 0);
+  signal d11      : std_logic_vector(2*DATA_W-1 downto 0);
 
   signal current_state  : std_logic_vector(3 downto 0) := X"F";
   attribute fsm_encoding of current_state : signal is "USER";
@@ -118,20 +107,21 @@ begin
     end case;
   end process;
 
-  d0  <= (repeat(9, data_dly(1))  & repeat(11, data_dly(0)));
-  d1  <= (repeat(7, data_dly(3))  & repeat(11, data_dly(2)) & repeat(2, data_dly(1)));
-  d2  <= (repeat(5, data_dly(5))  & repeat(11, data_dly(4)) & repeat(4, data_dly(3)));
-  d3  <= (repeat(3, data_dly(7))  & repeat(11, data_dly(6)) & repeat(6, data_dly(5)));
-  d4  <= (          data_dly(9)   & repeat(11, data_dly(8)) & repeat(8, data_dly(7)));
-  d5  <= (repeat(10,data_dly(0))  & repeat(10, b9_save));
-  d6  <= (repeat(8, data_dly(2))  & repeat(11, data_dly(1)) &           data_dly(0));
-  d7  <= (repeat(6, data_dly(4))  & repeat(11, data_dly(3)) & repeat(3, data_dly(2)));
-  d8  <= (repeat(4, data_dly(6))  & repeat(11, data_dly(5)) & repeat(5, data_dly(4)));
-  d9  <= (repeat(2, data_dly(8))  & repeat(11, data_dly(7)) & repeat(7, data_dly(6)));
-  d10 <= (repeat(11,data_dly(9))  & repeat(9,  data_dly(8)));
-  d11 <= (repeat(10,data_r(0))    & repeat(10, data_dly(9)));
+  --               1            2             3             4             5             6             7             8             9             10            11            12            13            14            15            16            17            18            19            20
+  d0  <= (data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0));
+  d1  <= (data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(2) & data_dly(2) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1));
+  d2  <= (data_dly(5) & data_dly(5) & data_dly(5) & data_dly(5) & data_dly(5) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2));
+  d3  <= (data_dly(7) & data_dly(7) & data_dly(7) & data_dly(7) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(5) & data_dly(5) & data_dly(5) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3));
+  d4  <= (data_dly(9) & data_dly(9) & data_dly(9) & data_dly(9) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(7) & data_dly(7) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(5) & data_dly(5) & data_dly(5) & data_dly(5) & data_dly(5) & data_dly(5));
+  d5  <= (data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0) & data_dly(0));
+  d6  <= (data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1) & data_dly(1));
+  d7  <= (data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(3) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2) & data_dly(2));
+  d8  <= (data_dly(6) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(5) & data_dly(5) & data_dly(5) & data_dly(5) & data_dly(5) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4) & data_dly(4));
+  d9  <= (data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(7) & data_dly(7) & data_dly(7) & data_dly(7) & data_dly(7) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(6) & data_dly(6));
+  d10 <= (data_dly(9) & data_dly(9) & data_dly(9) & data_dly(9) & data_dly(9) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8) & data_dly(8));
+  d11 <= (  data_r(0) &   data_r(0) &   data_r(0) &   data_r(0) &   data_r(0) &   data_r(0) &   data_r(0) &   data_r(0) &   data_r(0) &   data_r(0) & data_dly(9) & data_dly(9) & data_dly(9) & data_dly(9) & data_dly(9) & data_dly(9) & data_dly(9) & data_dly(9) & data_dly(9) & data_dly(9));
 
-  process (all)
+  process (current_state, d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11)
   begin
     case current_state is
       when "0000" =>
