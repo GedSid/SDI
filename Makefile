@@ -1,5 +1,7 @@
 EXAMPLES := src/misc/scram/tests \
 
+# EXAMPLES := src/misc/ln/tests \
+
 .PHONY: $(EXAMPLES)
 
 .PHONY: all
