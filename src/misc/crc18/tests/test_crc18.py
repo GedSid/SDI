@@ -1,6 +1,6 @@
-# import sys
-# sys.path.insert(0, '../../../../src/misc/scram/model')
-# from crc18_model import crc18_model
+import sys
+sys.path.insert(0, '../../../../src/misc/crc18/model')
+from crc18_model import crc18_model
 
 import cocotb
 from cocotb import start_soon
@@ -33,26 +33,24 @@ def binary_number_to_array(binary_number):
 @cocotb.test()
 async def crc18_test(dut):
 
-    input_bits = 0b1010101010
+    model = crc18_model()
+
+    input_bits = 0b1110111011
+
     input_vec = binary_number_to_array(input_bits)
-    # output_bit = nrz_2_nrzi_bit(input_vec)
-    # print(output_bit[-9:])
+
+    model.update_crc(input_vec, 1, 1)
 
     await init_test(dut)
-    # dut.d_p_nrzi.value = 0
     await ClockCycles(dut.clk, 1)
 
     dut.crc_clr.value = 0
 
-    await ClockCycles(dut.clk, 3)
+    await ClockCycles(dut.clk, 1)
 
     dut.data_i.value = int(input_bits)
     dut.crc_en.value = 1
 
-    await ClockCycles(dut.clk, 10)
-    # await ClockCycles(dut.clk, 2)
-    # print(binary_number_to_array(dut.data_o.value)[:9])
-
-    # assert binary_number_to_array(dut.data_o.value)[:9] == output_bit[-9:], \
-    #     f"NRZ to NRZI consersion result is incorrect: \
-    #       {binary_number_to_array(dut.data_o.value)[:9]} != {output_bit[-9:]}"
+    await ClockCycles(dut.clk, 2)
+    assert binary_number_to_array(dut.crc_o.value) == model.get_crc_output()
+    await ClockCycles(dut.clk, 6)
