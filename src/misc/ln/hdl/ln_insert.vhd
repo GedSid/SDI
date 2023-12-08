@@ -22,7 +22,8 @@ architecture rtl of ln_insert is
 
 begin
 
-  process(all)
+  -- process(all)
+  process(ln_ins_en, ln_word0, ln_word1, ln_i, data_c_i, data_y_i)
   begin
     if (ln_ins_en = '1') then 
       if(ln_word0 = '1') then
