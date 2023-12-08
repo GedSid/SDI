@@ -3,3 +3,4 @@
 **/__pycache__/*
 **/sim_build/*
 **/*.cf
+**/tests/wave.ghw

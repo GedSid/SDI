@@ -1,22 +1,23 @@
 library ieee;
   use ieee.std_logic_1164.all;
 
-entity crc18_smpte is
+entity crc18 is
   generic(
-    DATA_W      : positive := 10;
+    DATA_W : positive := 10;
     POLY_ORDER  : positive := 18
   );
-  port(
-    clk     : in  std_logic;
-    rst     : in  std_logic;
-    crc_clr : in  std_logic;
-    crc_en  : in  std_logic;
-    data_i  : in  std_logic_vector(DATA_W-1 downto 0);
-    crc_o   : out std_logic_vector(POLY_ORDER-1 downto 0)
+  port (
+    clk       : in  std_logic;                      -- 74.25 MHz
+    rst       : in  std_logic;                      -- async
+    clk_en    : in  std_logic;
+    crc_en    : in  std_logic;
+    crc_clr   : in  std_logic;
+    data_i    : in  std_logic_vector(DATA_W-1 downto 0);
+    crc_o     : out std_logic_vector(POLY_ORDER-1 downto 0)
   );
-end crc18_smpte;
+end crc18;
 
-architecture rtl of crc18_smpte is
+architecture rtl of crc18 is
 
   signal temp     : std_logic_vector(DATA_W-1 downto 0);
   signal crc_new  : std_logic_vector(POLY_ORDER-1 downto 0);
@@ -47,7 +48,7 @@ begin
       crc_new(i) <= (temp(i - 3) xor temp(i - 4)) xor temp(i - 8);
     end loop;
     crc_new(13) <= temp(9) xor temp(5);
-    for i in 14 to POLY_ORDER loop
+    for i in 14 to POLY_ORDER-1 loop
       crc_new(i) <= temp(i - 8);
     end loop;
   end process;
@@ -56,13 +57,15 @@ begin
   begin
     if (rst = '1') then
       crc_reg <= (others => '0');
+      crc_o   <= (others => '0');
     elsif (rising_edge(clk)) then
-      if (crc_en = '1') then
-        crc_reg <= crc_new;
+      if (clk_en = '1') then
+        if (crc_en = '1') then
+          crc_reg <= crc_new;
+          crc_o   <= crc_new;
+        end if;
       end if;
     end if;
   end process;
-
-  crc_o <= crc_reg;
 
 end rtl;

@@ -9,7 +9,8 @@ entity crc_insert is
   port(
     clk         : in  std_logic;
     rst         : in  std_logic;
-    din_rdy     : in  std_logic;
+    clk_en      : in  std_logic;
+    d_rdy_i     : in  std_logic;
     sav         : in  std_logic;
     eav_dly     : in  std_logic;
     data_c_i    : in  std_logic_vector(DATA_W-1 downto 0);
@@ -32,27 +33,29 @@ architecture rtl of crc_insert is
 
 begin
 
-  crc_timing_ctrl_u: process(clk, rst)
+  crc_timing_ctrl_p: process(clk, rst)
   begin
     if (rst = '1') then
       crc_en <= '0';
       crc_clr <= '0';
     elsif (rising_edge(clk)) then
-      if (din_rdy = '1') then
-        crc_clr <= sav;
-        if (sav = '1') then
-          crc_en <= '1';
-        elsif (eav_dly = '1') then
-          crc_en <= '0';
+      if (clk_en = '1') then
+        if (d_rdy_i = '1') then
+          crc_clr <= sav;
+          if (sav = '1') then
+            crc_en <= '1';
+          elsif (eav_dly = '1') then
+            crc_en <= '0';
+          end if;
         end if;
       end if;
     end if;
   end process;
 
   -- Instantiate the CRC generators
-  crc_en_rdy <= din_rdy and crc_en;
+  crc_en_rdy <= d_rdy_i and crc_en;
 
-  crc_y_u: entity work.crc18_smpte
+  crc_y_u: entity work.crc18
   generic map(
     DATA_W      => DATA_W,
     POLY_ORDER  => POLY_ORDER
@@ -60,13 +63,14 @@ begin
   port map (
     clk     => clk,
     rst     => rst,
+    clk_en  => clk_en,
     crc_en  => crc_en_rdy,
     crc_clr => crc_clr,
     data_i  => data_y_i,
     crc_o   => crc_y_in
   );
 
-  crc_c_u: entity work.crc18_smpte
+  crc_c_u: entity work.crc18
   generic map(
     DATA_W      => DATA_W,
     POLY_ORDER  => POLY_ORDER
@@ -74,13 +78,15 @@ begin
   port map (
     clk     => clk,
     rst     => rst,
+    clk_en  => clk_en,
     crc_en  => crc_en_rdy,
     crc_clr => crc_clr,
     data_i  => data_c_i,
     crc_o   => crc_c_in
   );
 
-  crc_insertion_p: process(all)
+  -- crc_insertion_p: process(all)
+  crc_insertion_p: process(crc_ins_en, crc_word0, crc_word1, crc_c_in, crc_y_in, data_c_i, data_y_i)
   begin
     if (crc_ins_en = '1') then
       if (crc_word0 = '1') then

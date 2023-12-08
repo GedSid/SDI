@@ -1,0 +1,11 @@
+## Transmisor SDI
+
+Este es el módulo de salida para un transmisor SD/HD/3G-SDI de triple tasa. Inserta paquetes EDH para SD y palabras CRC y LN para HD y 3G. Mezcla los datos para la transmisión. Para SD, implementa replicación de bits 11X. Para HD y 3G, convierte los datos en una secuencia de datos de 10 bits para la conexión a un puerto `TXDATA` de 20 bits en el serializador.
+
+La frecuencia de reloj es normalmente de 74.25 MHz para HD-SDI y 148.5 MHz para 3G-SDI y SD-SDI. La señal de habilitación de reloj (`clk_en`) debe ser siempre 1 para HD-SDI y 3G-SDI, a menos que, por alguna razón, la frecuencia del reloj sea el doble de lo normal) Para SD-SDI, debe promediar 27 MHz, al activarse en una cadencia de ciclo de reloj de 5/6. Para 3G-SDI de nivel B, las cuatro secuencias de datos de entrada están activas y la velocidad de datos real es de 74.25 MHz, aunque la frecuencia del reloj es de 148.5 MHz. En este caso, `din_rdy` debe ser activado cada dos ciclos de reloj para indicar en qué ciclo de reloj el módulo debe tomar los datos de entrada. Para todos los demás modos, `din_rdy` siempre debe estar en alto. Para HD-SDI de doble enlace con video de 1080p a 60 Hz o 50 Hz, la frecuencia del reloj será típicamente de 148.5 MHz, pero la velocidad de datos es de 74.25 MHz y `clk_en` se activa cada dos ciclos de reloj con `din_rdy` siempre en alto.
+
+### Replicador de Bits 11
+
+**AUN NO LO IMPLEMENTE**
+
+Este módulo realiza la replicación de bits de los datos entrantes, 11 veces, y envía 20 bits en cada ciclo de reloj. Este módulo requiere una cadencia alternante de 5/6 en la habilitación de reloj (`clk_en`). El FSM se alinea automáticamente independientemente de si el primer paso de la cadencia es 5 o 6 cuando se inicia. Si la cadencia 5/6 se desincroniza, el FSM se realineará automáticamente y también activará la salida `align_err` durante un ciclo de reloj.

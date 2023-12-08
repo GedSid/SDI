@@ -34,8 +34,13 @@ flowchart LR
 
 # Sub-Modules
 
-![CRC](https://github.com/GedSid/SDI/blob/crc/src/misc/crc/README.md)
+![Scrambler](https://github.com/GedSid/SDI/blob/main/src/scram/README.md)
 
-![Scrambler](https://github.com/GedSid/SDI/blob/crc/src/misc/scram/README.md)
+![LN](https://github.com/GedSid/SDI/blob/main/src/ln/README.md)
+
+![CRC](https://github.com/GedSid/SDI/blob/main/src/crc18/README.md)
+
+![Scrambler](https://github.com/GedSid/SDI/blob/main/src/scram/README.md)
+
 
 
