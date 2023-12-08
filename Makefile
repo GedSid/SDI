@@ -1,8 +1,8 @@
-# EXAMPLES := src/misc/sdi_tx/tests
-EXAMPLES := src/misc/crc18/tests \
-            src/misc/scram/tests \
-			src/misc/bit_rep/tests \
-			# src/misc/sdi_tx/tests \
+# EXAMPLES := src/sdi_tx/tests
+EXAMPLES := src/crc18/tests \
+            src/scram/tests \
+			src/bit_rep/tests \
+			# src/sdi_tx/tests \
 
 .PHONY: $(EXAMPLES)
 
@@ -18,3 +18,4 @@ clean:
 
 regression:
 	$(foreach TEST, $(EXAMPLES), $(MAKE) -C $(TEST) regression;)
+
