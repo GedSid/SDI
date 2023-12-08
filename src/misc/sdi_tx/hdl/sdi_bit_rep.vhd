@@ -51,12 +51,13 @@ begin
       clk_en_dly <= '0';
     elsif (rising_edge(clk)) then
       clk_en_dly <= clk_en;
+      current_state <= next_state;
       if (clk_en = '1') then
-          data_r <= data_i;
-          data_dly <= data_r;
+        data_r <= data_i;
+        data_dly <= data_r;
       end if;
       if (clk_en_dly = '1') then
-        b9_save <= data_dly(2*DATA_W-1);
+        b9_save <= data_dly(DATA_W-1);
       end if;
     end if;
   end process;
@@ -124,29 +125,29 @@ begin
   process (current_state, d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11)
   begin
     case current_state is
-      when "0000" =>
+      when X"0" =>
         data_mux <= d0;
-      when "0001" =>
+      when X"1" =>
         data_mux <= d1;
-      when "0010" =>
+      when X"2" =>
         data_mux <= d2;
-      when "0011" =>
+      when X"3" =>
         data_mux <= d3;
-      when "0100" =>
+      when X"4" =>
         data_mux <= d4;
-      when "0101" =>
+      when X"5" =>
         data_mux <= d5;
-      when "0110" =>
+      when X"6" =>
         data_mux <= d6;
-      when "0111" =>
+      when X"7" =>
         data_mux <= d7;
-      when "1000" =>
+      when X"8" =>
         data_mux <= d8;
-      when "1001" =>
+      when X"9" =>
         data_mux <= d9;
-      when "1010" =>
+      when X"A" =>
         data_mux <= d10;
-      when "1011" =>
+      when X"B" =>
         data_mux <= d11;
       when others =>
         data_mux <= (others => '0');
