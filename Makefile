@@ -1,9 +1,8 @@
 # EXAMPLES := src/misc/sdi_tx/tests
 EXAMPLES := src/misc/crc18/tests \
             src/misc/scram/tests \
-			src/misc/sdi_tx/tests \
-
-
+			src/misc/bit_rep/tests \
+			# src/misc/sdi_tx/tests \
 
 .PHONY: $(EXAMPLES)
 

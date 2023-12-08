@@ -55,7 +55,7 @@ begin
   -- Instantiate the CRC generators
   crc_en_rdy <= d_rdy_i and crc_en;
 
-  crc_y_u: entity work.crc18_smpte
+  crc_y_u: entity work.crc18
   generic map(
     DATA_W      => DATA_W,
     POLY_ORDER  => POLY_ORDER
@@ -70,7 +70,7 @@ begin
     crc_o   => crc_y_in
   );
 
-  crc_c_u: entity work.crc18_smpte
+  crc_c_u: entity work.crc18
   generic map(
     DATA_W      => DATA_W,
     POLY_ORDER  => POLY_ORDER
@@ -85,7 +85,8 @@ begin
     crc_o   => crc_c_in
   );
 
-  crc_insertion_p: process(all)
+  -- crc_insertion_p: process(all)
+  crc_insertion_p: process(crc_ins_en, crc_word0, crc_word1, crc_c_in, crc_y_in, data_c_i, data_y_i)
   begin
     if (crc_ins_en = '1') then
       if (crc_word0 = '1') then
