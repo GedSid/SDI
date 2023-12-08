@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, '../../../../src/misc/crc18/model')
+sys.path.insert(0, '../../../src/crc18/model')
 from crc18_model import crc18_model
 
 import cocotb

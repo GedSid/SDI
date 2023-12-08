@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, '../../../../src/scram/model')
+sys.path.insert(0, '../../../src/scram/model')
 from nrz_2_nrzi_model import nrz_2_nrzi_bit
 
 import cocotb

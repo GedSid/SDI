@@ -22,31 +22,8 @@ class crc18_model:
         if crc_en:
             self.crc_reg = crc_new
 
-    # def crc_calc(self, crc_en, data_i, crc):
-    #     DATA_W = 10
-
-    #     t = []
-    #     crc_new = []
-    #     # for i in range(DATA_W-1):
-    #     #     t[i] = data_i[i] ^ crc[i]
-
-    #     for i in range(2):
-    #         crc_new[i] = crc[i + 10]
-    #     crc_new[3] = t[0] ^ crc[13]
-    #     for i in range(4, 7):
-    #         crc_new[i] = (t[i - 3] ^ t[i - 4]) ^ crc[i + 10]
-    #     for i in range(8, 12):
-    #         crc_new[i] = (t[i - 3] ^ t[i - 4]) ^ t[i - 8]
-    #     crc_new[13] = t[9] ^ t[5]
-    #     for i in range(14, 19):
-    #         crc_new[i] = t[i - 8]
-
-    #     if crc_en:
-    #         return crc_new
-    #     return 0
 
     def get_crc_output(self):
-        # return bin(self.crc_reg)[2:].zfill(self.POLY_ORDER)
         return [1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0]
 
 # # Example usage
