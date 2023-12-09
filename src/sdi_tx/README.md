@@ -6,6 +6,4 @@ La frecuencia de reloj es normalmente de 74.25 MHz para HD-SDI y 148.5 MHz para 
 
 ### Replicador de Bits 11
 
-**AUN NO LO IMPLEMENTE**
-
 Este módulo realiza la replicación de bits de los datos entrantes, 11 veces, y envía 20 bits en cada ciclo de reloj. Este módulo requiere una cadencia alternante de 5/6 en la habilitación de reloj (`clk_en`). El FSM se alinea automáticamente independientemente de si el primer paso de la cadencia es 5 o 6 cuando se inicia. Si la cadencia 5/6 se desincroniza, el FSM se realineará automáticamente y también activará la salida `align_err` durante un ciclo de reloj.

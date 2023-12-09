@@ -34,7 +34,7 @@ flowchart LR
 
 # Sub-Modules
 
-![Scrambler](https://github.com/GedSid/SDI/blob/main/src/scram/README.md)
+![TX](https://github.com/GedSid/SDI/blob/main/src/sdi_tx/README.md)
 
 ![LN](https://github.com/GedSid/SDI/blob/main/src/ln/README.md)
 
