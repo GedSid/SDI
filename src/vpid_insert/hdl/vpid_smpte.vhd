@@ -2,19 +2,18 @@ library ieee;
   use ieee.std_logic_1164.all;
   use ieee.numeric_std.all;
 
-entity SMPTE352_vpid_insert is
+entity vpid_insert is
   generic(
     DATA_W      : positive := 10;
-    VERT_POS_W  : positive := 11;
-    POLY_ORDER  : positive := 18
+    VERT_POS_W  : positive := 11
   );
   port (
     clk       : in  std_logic;
-    ce        : in  std_logic;
+    clk_en    : in  std_logic;
     rst       : in  std_logic;
     hd_sd     : in  std_logic;
-    level_b   : in  std_logic;
-    enable    : in  std_logic;
+    lvl_b     : in  std_logic;
+    en        : in  std_logic;
     overwrite : in  std_logic;
     line      : in  std_logic_vector(VERT_POS_W - 1 downto 0);
     line_a    : in  std_logic_vector(VERT_POS_W - 1 downto 0);
@@ -32,9 +31,9 @@ entity SMPTE352_vpid_insert is
     sav_o     : out std_logic
 );
 
-end SMPTE352_vpid_insert;
+end vpid_insert;
 
-architecture rtl of SMPTE352_vpid_insert is
+architecture rtl of vpid_insert is
 
   subtype  ST_TYPE is std_logic_vector(5 downto 0);
   subtype  SEL_MUX_TYPE is std_logic_vector(3 downto 0);
@@ -146,7 +145,7 @@ begin
       byte3_r <= (others => '0');
       byte4_r <= (others => '0');
     elsif rising_edge(clk) then
-      if (ce = '1') then
+      if (clk_en = '1') then
         in_r    <= y_i;
         vid0_r  <= in_r;
         vid1_r  <= vid0_r;
@@ -169,7 +168,7 @@ begin
           all_zeros_pipe <= (others => '0');
           all_ones_pipe <= (others => '0');
       elsif rising_edge(clk) then
-          if (ce = '1') then
+          if (clk_en = '1') then
               all_zeros_pipe <= (all_zeros_pipe(1 downto 0) & all_zeros_i);
               all_ones_pipe <= (all_ones_pipe(1 downto 0) & all_ones_i);
           end if;
@@ -187,7 +186,7 @@ begin
     if (rst = '1') then
       shift_r0 <= (others => '0');
     elsif rising_edge(clk) then
-      if (ce = '1') then
+      if (clk_en = '1') then
         if (hd_sd = '1') then
           for i in 0 to 15 loop
             if (i < 3) then
@@ -219,7 +218,7 @@ begin
     if (rst = '1') then
       vpid_line <= '0';
     elsif rising_edge(clk) then
-        if (ce = '1') then
+        if (clk_en = '1') then
           vpid_line <= line_match_a or (line_match_b and line_b_en);
         end if;
       end if;
@@ -239,7 +238,7 @@ begin
       if (rst = '1') then
         udw_cntr <= (others => '0');
       elsif rising_edge(clk) then
-        if (ce = '1') then
+        if (clk_en = '1') then
           udw_cntr <= std_logic_vector(unsigned(udw_cntr_mux) - 1);
         end if;
       end if;
@@ -250,7 +249,7 @@ begin
     if (rst = '1') then
       cs_r <= (others => '0');
     elsif rising_edge(clk) then
-      if (ce = '1') then
+      if (clk_en = '1') then
         if (clr_cs_r = '1') then
           cs_r <= (others => '0');
         else
@@ -285,7 +284,7 @@ begin
     if (rst = '1') then
       cs_r <= (others => '0');
     elsif rising_edge(clk) then
-      if (ce = '1') then
+      if (clk_en = '1') then
         y_o_r <= vid_o;
       end if;
     end if;
@@ -298,7 +297,7 @@ begin
     if (rst = '1') then
       shift_r1 <= (others => '0');
     elsif rising_edge(clk) then
-      if (ce = '1') then
+      if (clk_en = '1') then
         for i in 0 to 15 loop
           if (i < 10) then
             shift_r1(i) <= c_i(i);
@@ -310,7 +309,7 @@ begin
     end if;
   end process;
 
-  c_o <= shift_r1 when ce = '1' else (others => '0');
+  c_o <= shift_r1 when clk_en = '1' else (others => '0');
 
   eav_sav_o_gen_p: process(clk, rst)
   begin
@@ -320,7 +319,7 @@ begin
       sav_timing <= (others => '0');
       sav_o_r <= '0';
     elsif rising_edge(clk) then
-      if (ce = '1') then
+      if (clk_en = '1') then
         eav_timing <= (eav_timing(2 downto 0) & eav_n);
         eav_o_r <= eav_timing(3);
         sav_timing <= (sav_timing(2 downto 0) & sav_n);
@@ -337,7 +336,7 @@ begin
     if (rst = '1') then
       current_st <= ST_WAIT;
     elsif rising_edge(clk) then
-      if (ce = '1') then
+      if (clk_en = '1') then
         if (sav_n = '1') then
           current_st <= ST_WAIT;
         else
@@ -347,18 +346,18 @@ begin
     end if;
   end process;
 
-  fsm_next_st_p: process(current_st, enable, vpid_line, hanc_start_n, anc_n,
+  fsm_next_st_p: process(current_st, en, vpid_line, hanc_start_n, anc_n,
                           overwrite, vpid_pkt, del_pkt_ok, udw_cntr_tc)
   begin
     case current_st is
       when ST_WAIT => 
-        if enable = '1' and vpid_line = '1' and hanc_start_n = '1' then
+        if en = '1' and vpid_line = '1' and hanc_start_n = '1' then
           if anc_n = '1' then
             next_st <= ST_ADF0;
           else
             next_st <= ST_INS_ADF0;
           end if;
-        elsif enable = '1' and vpid_line = '0' and anc_n = '1' and overwrite = '1' then
+        elsif en = '1' and vpid_line = '0' and anc_n = '1' and overwrite = '1' then
           next_st <= ST_ADF0_X;
         else
           next_st <= ST_WAIT;
@@ -474,7 +473,7 @@ begin
     end case;
   end process;
 
-  fsm_out_p: process(current_st, level_b)
+  fsm_out_p: process(current_st, lvl_b)
   begin
     out_mux_sel     <= SEL_MUX_VID;
     ld_udw_cntr     <= '0';
@@ -484,7 +483,7 @@ begin
       when ST_ADF2 =>
         clr_cs_r <= '1';
       when ST_B0 =>
-        if level_b = '1' then
+        if lvl_b = '1' then
           out_mux_sel <= SEL_MUX_UDW;
         else
           out_mux_sel <= SEL_MUX_VID;

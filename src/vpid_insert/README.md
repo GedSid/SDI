@@ -1,0 +1,15 @@
+# Módulo de Inserción de Paquetes de Identificación de Carga de Video SMPTE 352M
+
+Este módulo inserta ID de payload de video SMPTE 352M en los stream de datos SD-SDI, HD-SDI o 3G-SDI.
+
+Para SD-SDI, acepta un flujo de datos multiplexado Y/C de 10 bits. Clock Enable debe afirmarse 1 de cada 11 ciclos de reloj para una tasa de trasmisión de 27 MHz. Para HD-SDI, acepta dos flujos de datos de 10 bits, Y y C, cada una de 10 bits. Clock Enable debe afirmarse cada dos ciclos de reloj para una tasa de trasmisión de datos de entrada de 74.25 MHz. Para 3G-SDI nivel A, acepta dos flujos de datos de 10 bits. Clock Enable debe afirmarse cada dos ciclos de reloj para una tasa de trasmisión de datos de entrada de 148.5 MHz.
+
+Para 3G-SDI nivel B, acepta cuatro flujos de datos de 10 bits. Estos pueden ser un par dual enlace SMPTE 372M o pueden ser dos señales HD-SDI independientes pero sincronizadas. La frecuencia de reloj es de 297 MHz, Clock Enable debe afirmarse cada dos ciclos de reloj y Data In Ready se afirma 1 de cada 4 ciclos de reloj para una tasa de trasmisión de datos de entrada de 74.25 MHz. Los datos de entrada solo se aceptan cuando tanto ambas señales están en alto. Debido a que `din_rdy` también se utiliza para multiplexar los cuatro flujos de datos a dos flujos de datos en la salida del módulo, debe tener un ciclo de trabajo del 50 %: alto durante dos ciclos de reloj y bajo durante dos ciclos de reloj.
+
+# VPID SMPTE:
+
+Este módulo inserta paquetes de identificación de carga de video SMPTE 352M en un flujo de video. El flujo puede ser tanto HD como SD, según lo indique la señal de entrada hd_sd. El módulo sobrescribirá un paquete VPID existente si la entrada `overwrite`` está activada, sino, si ya existe un paquete VPID en el espacio HANC, no se sobrescribirá y no se insertará un nuevo paquete.
+
+El módulo no crea las palabras de datos de usuario del paquete VPID. Estas se generan externamente y entran al módulo a través de los puertos `byte1`, `byte2`, `byte3` y `byte4`. El módulo requiere un número de línea de interfaz en su entrada. Este número de línea debe ser válido para la nueva línea un ciclo de reloj antes del inicio del espacio HANC, es decir, durante la segunda palabra CRC después del EAV.
+
+Si la entrada `overwrite` está en 1, este módulo también eliminará cualquier paquete VPID que ocurra en cualquier otro lugar en cualquier espacio HANC. Estos paquetes se marcarán como paquetes eliminados. Cuando la entrada `level_b` es 1, el módulo funciona de manera un poco diferente. Siempre queda la primera palabra de datos del paquete VPID con el valor presente en el puerto de entrada `byte1`, incluso si `overwrite` es 0. Esto se debe a que las conversiones de doble enlace a nivel B 3G-SDI requieren que se modifique el primer byte. El checksum se recalcula e inserta.
