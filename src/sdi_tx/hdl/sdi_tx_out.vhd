@@ -225,7 +225,7 @@ begin
 
   ce_align_err <= align_err and mode_sd;
 
-  out_r_p: process(clk)
+  out_r_p: process(clk, rst)
   begin
     if (rst = '1') then
       data_tx_o_r <= (others => '0');
