@@ -2,7 +2,7 @@ library ieee;
   use ieee.std_logic_1164.all;
   use ieee.numeric_std.all;
 
-entity vpid_insert is
+entity vpid_smpte is
   generic(
     DATA_W      : positive := 10;
     VERT_POS_W  : positive := 11
@@ -31,9 +31,9 @@ entity vpid_insert is
     sav_o     : out std_logic
 );
 
-end vpid_insert;
+end vpid_smpte;
 
-architecture rtl of vpid_insert is
+architecture rtl of vpid_smpte is
 
   subtype  ST_TYPE is std_logic_vector(5 downto 0);
   subtype  SEL_MUX_TYPE is std_logic_vector(3 downto 0);
