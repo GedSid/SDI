@@ -74,7 +74,7 @@ begin
 
   vpid_ins_ce <= clk_en and din_rdy;
 
-  vpid1_u : entity work.vpid_insert
+  vpid1_u : entity work.vpid_smpte
   port map (
     clk       => clk,
     clk_en    => vpid_ins_ce,
@@ -102,7 +102,7 @@ begin
   ds2_i <= a_c_i when mode_3G_A = '1' else b_y_i;
   ds2_ln <= ln_b when mode_3G_B = '1' else ln_a;
 
-  vpid2_u : entity work.vpid_insert
+  vpid2_u : entity work.vpid_smpte
   port map (
     clk       => clk,
     clk_en    => vpid_ins_ce,
