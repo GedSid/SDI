@@ -35,54 +35,51 @@ end vpid_smpte;
 
 architecture rtl of vpid_smpte is
 
-  subtype  ST_TYPE is std_logic_vector(5 downto 0);
-  subtype  SEL_MUX_TYPE is std_logic_vector(3 downto 0);
+  constant ST_WAIT        : std_logic_vector(5 downto 0) := "000000";
+  constant ST_ADF0        : std_logic_vector(5 downto 0) := "000001";
+  constant ST_ADF1        : std_logic_vector(5 downto 0) := "000010";
+  constant ST_ADF2        : std_logic_vector(5 downto 0) := "000011";
+  constant ST_DID         : std_logic_vector(5 downto 0) := "000100";
+  constant ST_SDID        : std_logic_vector(5 downto 0) := "000101";
+  constant ST_DC          : std_logic_vector(5 downto 0) := "000110";
+  constant ST_B0          : std_logic_vector(5 downto 0) := "000111";
+  constant ST_B1          : std_logic_vector(5 downto 0) := "001000";
+  constant ST_B2          : std_logic_vector(5 downto 0) := "001001";
+  constant ST_B3          : std_logic_vector(5 downto 0) := "001010";
+  constant ST_CS          : std_logic_vector(5 downto 0) := "001011";
+  constant ST_DID2        : std_logic_vector(5 downto 0) := "001100";
+  constant ST_SDID2       : std_logic_vector(5 downto 0) := "001101";
+  constant ST_DC2         : std_logic_vector(5 downto 0) := "001110";
+  constant ST_UDW         : std_logic_vector(5 downto 0) := "001111";
+  constant ST_CS2         : std_logic_vector(5 downto 0) := "010000";
+  constant ST_INS_ADF0    : std_logic_vector(5 downto 0) := "010001";
+  constant ST_INS_ADF1    : std_logic_vector(5 downto 0) := "010010";
+  constant ST_INS_ADF2    : std_logic_vector(5 downto 0) := "010011";
+  constant ST_INS_DID     : std_logic_vector(5 downto 0) := "010100";
+  constant ST_INS_SDID    : std_logic_vector(5 downto 0) := "010101";
+  constant ST_INS_DC      : std_logic_vector(5 downto 0) := "010110";
+  constant ST_INS_B0      : std_logic_vector(5 downto 0) := "010111";
+  constant ST_INS_B1      : std_logic_vector(5 downto 0) := "011000";
+  constant ST_INS_B2      : std_logic_vector(5 downto 0) := "011001";
+  constant ST_INS_B3      : std_logic_vector(5 downto 0) := "011010";
+  constant ST_ADF0_X      : std_logic_vector(5 downto 0) := "011011";
+  constant ST_ADF1_X      : std_logic_vector(5 downto 0) := "011100";
+  constant ST_ADF2_X      : std_logic_vector(5 downto 0) := "011101";
+  constant ST_DID_X       : std_logic_vector(5 downto 0) := "011110";
+  constant ST_SDID_X      : std_logic_vector(5 downto 0) := "011111";
+  constant ST_DC_X        : std_logic_vector(5 downto 0) := "100000";
+  constant ST_UDW_X       : std_logic_vector(5 downto 0) := "100001";
+  constant ST_CS_X        : std_logic_vector(5 downto 0) := "100010";
 
-  constant ST_WAIT        : ST_TYPE := "000000";
-  constant ST_ADF0        : ST_TYPE := "000001";
-  constant ST_ADF1        : ST_TYPE := "000010";
-  constant ST_ADF2        : ST_TYPE := "000011";
-  constant ST_DID         : ST_TYPE := "000100";
-  constant ST_SDID        : ST_TYPE := "000101";
-  constant ST_DC          : ST_TYPE := "000110";
-  constant ST_B0          : ST_TYPE := "000111";
-  constant ST_B1          : ST_TYPE := "001000";
-  constant ST_B2          : ST_TYPE := "001001";
-  constant ST_B3          : ST_TYPE := "001010";
-  constant ST_CS          : ST_TYPE := "001011";
-  constant ST_DID2        : ST_TYPE := "001100";
-  constant ST_SDID2       : ST_TYPE := "001101";
-  constant ST_DC2         : ST_TYPE := "001110";
-  constant ST_UDW         : ST_TYPE := "001111";
-  constant ST_CS2         : ST_TYPE := "010000";
-  constant ST_INS_ADF0    : ST_TYPE := "010001";
-  constant ST_INS_ADF1    : ST_TYPE := "010010";
-  constant ST_INS_ADF2    : ST_TYPE := "010011";
-  constant ST_INS_DID     : ST_TYPE := "010100";
-  constant ST_INS_SDID    : ST_TYPE := "010101";
-  constant ST_INS_DC      : ST_TYPE := "010110";
-  constant ST_INS_B0      : ST_TYPE := "010111";
-  constant ST_INS_B1      : ST_TYPE := "011000";
-  constant ST_INS_B2      : ST_TYPE := "011001";
-  constant ST_INS_B3      : ST_TYPE := "011010";
-  constant ST_ADF0_X      : ST_TYPE := "011011";
-  constant ST_ADF1_X      : ST_TYPE := "011100";
-  constant ST_ADF2_X      : ST_TYPE := "011101";
-  constant ST_DID_X       : ST_TYPE := "011110";
-  constant ST_SDID_X      : ST_TYPE := "011111";
-  constant ST_DC_X        : ST_TYPE := "100000";
-  constant ST_UDW_X       : ST_TYPE := "100001";
-  constant ST_CS_X        : ST_TYPE := "100010";
-
-  constant SEL_MUX_000    : SEL_MUX_TYPE := "0000";
-  constant SEL_MUX_3FF    : SEL_MUX_TYPE := "0001";
-  constant SEL_MUX_DID    : SEL_MUX_TYPE := "0010";
-  constant SEL_MUX_SDID   : SEL_MUX_TYPE := "0011";
-  constant SEL_MUX_DC     : SEL_MUX_TYPE := "0100";
-  constant SEL_MUX_UDW    : SEL_MUX_TYPE := "0101";
-  constant SEL_MUX_CS     : SEL_MUX_TYPE := "0110";
-  constant SEL_MUX_DEL    : SEL_MUX_TYPE := "0111";
-  constant SEL_MUX_VID    : SEL_MUX_TYPE := "1000";
+  constant SEL_MUX_000    : std_logic_vector(3 downto 0) := "0000";
+  constant SEL_MUX_3FF    : std_logic_vector(3 downto 0) := "0001";
+  constant SEL_MUX_DID    : std_logic_vector(3 downto 0) := "0010";
+  constant SEL_MUX_SDID   : std_logic_vector(3 downto 0) := "0011";
+  constant SEL_MUX_DC     : std_logic_vector(3 downto 0) := "0100";
+  constant SEL_MUX_UDW    : std_logic_vector(3 downto 0) := "0101";
+  constant SEL_MUX_CS     : std_logic_vector(3 downto 0) := "0110";
+  constant SEL_MUX_DEL    : std_logic_vector(3 downto 0) := "0111";
+  constant SEL_MUX_VID    : std_logic_vector(3 downto 0) := "1000";
 
   signal vid0_r         : std_logic_vector(DATA_W - 1 downto 0) := (others => '0');
   signal vid1_r         : std_logic_vector(DATA_W - 1 downto 0) := (others => '0');
@@ -113,12 +110,12 @@ architecture rtl of vpid_smpte is
   signal clr_cs_r       : std_logic;
   signal vpid_mux       : std_logic_vector(7 downto 0);
   signal vpid_mux_sel   : std_logic_vector(1 downto 0);
-  signal out_mux_sel    : SEL_MUX_TYPE;
+  signal out_mux_sel    : std_logic_vector(3 downto 0);
   signal parity         : std_logic;
   signal sav_timing     : std_logic_vector(3 downto 0) := (others => '0');
   signal eav_timing     : std_logic_vector(3 downto 0) := (others => '0');
-  signal current_st     : ST_TYPE := ST_WAIT;
-  signal next_st        : ST_TYPE;
+  signal current_st     : std_logic_vector(5 downto 0) := ST_WAIT;
+  signal next_st        : std_logic_vector(5 downto 0);
   signal y_o_r          : std_logic_vector(DATA_W - 1 downto 0) := (others => '0');
   signal eav_o_r        : std_logic := '0';
   signal sav_o_r        : std_logic := '0';
@@ -129,7 +126,6 @@ architecture rtl of vpid_smpte is
   signal shift_r0       : std_logic_vector(DATA_W - 1 downto 0) := (others => '0');
   signal shift_r1       : std_logic_vector(DATA_W - 1 downto 0) := (others => '0');
 
- 
 begin
 
   in_reg_pipe_p: process(clk)
@@ -150,7 +146,7 @@ begin
         vid0_r  <= in_r;
         vid1_r  <= vid0_r;
         vid2_r  <= vid1_r;
-        vid_dly   <= vid2_r;
+        vid_dly <= vid2_r;
         byte1_r <= byte1;
         byte2_r <= byte2;
         byte3_r <= byte3;
