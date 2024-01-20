@@ -22,13 +22,13 @@ architecture rtl of sdi_enc is
 
   signal c_in_reg         : std_logic_vector(DATA_W-1 downto 0) := (others => '0');
   signal y_in_reg         : std_logic_vector(DATA_W-1 downto 0) := (others => '0');
-  signal c_d_i_scram      : std_logic_vector(8 downto 0); -- C channel intermediate scrambled data
-  signal y_d_i_scram      : std_logic_vector(8 downto 0); -- Y channel intermediate scrambled data
-  signal c_d_i_nrzi       : std_logic;  -- C channel intermediate nrzi data
-  signal c_out            : std_logic_vector(DATA_W-1 downto 0);  -- output of C scrambler
-  signal y_out            : std_logic_vector(DATA_W-1 downto 0);  -- output of Y scrambler
-  signal y_d_p_scram_mux  : std_logic_vector(8 downto 0); -- p_scram input MUX for Y encoder
-  signal y_d_p_nrzi_mux   : std_logic;  -- p_nrzi input MUX for Y encoder
+  signal c_d_i_scram      : std_logic_vector(8 downto 0);
+  signal y_d_i_scram      : std_logic_vector(8 downto 0);
+  signal c_d_i_nrzi       : std_logic;
+  signal c_out            : std_logic_vector(DATA_W-1 downto 0);
+  signal y_out            : std_logic_vector(DATA_W-1 downto 0);
+  signal y_d_p_scram_mux  : std_logic_vector(8 downto 0);
+  signal y_d_p_nrzi_mux   : std_logic;
   signal c_scram_2_nrz    : std_logic_vector(DATA_W-1 downto 0);
   signal clk_en_hd        : std_logic;
   signal scram_en_hd      : std_logic;
