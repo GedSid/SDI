@@ -55,5 +55,6 @@ jobs:
         sudo apt install -y ghdl yosys
     - name: Build with yosys & ghdl
       run: |
-        ghdl -a --std=08 src/*/hdl/*.vhd
+        ghdl -a src/*/hdl/*.vhd
+        # ghdl -a --std=08 src/*/hdl/*.vhd
         # yosys -m ghdl -p 'ghdl src/*/hdl/*.vhd -e crc_insert; synth_ice40 -json crc_insert.json'
