@@ -53,6 +53,36 @@ architecture rtl of sdi_vpid_insert is
   signal lvl_r        : std_logic := '0';
   signal vpid_ins_ce  : std_logic;
 
+    component vpid_smpte is
+      generic(
+        DATA_W      : positive := 10;
+        VERT_POS_W  : positive := 11
+      );
+      port (
+        clk       : in  std_logic;
+        clk_en    : in  std_logic;
+        rst       : in  std_logic;
+        hd_sd     : in  std_logic;
+        lvl_b     : in  std_logic;
+        en        : in  std_logic;
+        overwrite : in  std_logic;
+        line      : in  std_logic_vector(VERT_POS_W - 1 downto 0);
+        line_a    : in  std_logic_vector(VERT_POS_W - 1 downto 0);
+        line_b    : in  std_logic_vector(VERT_POS_W - 1 downto 0);
+        line_b_en : in  std_logic;
+        byte1     : in  std_logic_vector(DATA_W - 1 downto 0);
+        byte2     : in  std_logic_vector(DATA_W - 1 downto 0);
+        byte3     : in  std_logic_vector(DATA_W - 1 downto 0);
+        byte4     : in  std_logic_vector(DATA_W - 1 downto 0);
+        y_i       : in  std_logic_vector(DATA_W - 1 downto 0);
+        c_i       : in  std_logic_vector(DATA_W - 1 downto 0);
+        y_o       : out std_logic_vector(DATA_W - 1 downto 0);
+        c_o       : out std_logic_vector(DATA_W - 1 downto 0);
+        eav_o     : out std_logic;
+        sav_o     : out std_logic
+    );
+  end component;
+
 begin
 
   in_reg_p: process(clk, rst)
@@ -74,7 +104,7 @@ begin
 
   vpid_ins_ce <= clk_en and din_rdy;
 
-  vpid1_u : entity work.vpid_smpte
+  vpid1_u : vpid_smpte
   port map (
     clk       => clk,
     clk_en    => vpid_ins_ce,
@@ -102,7 +132,7 @@ begin
   ds2_i <= a_c_i when mode_3G_A = '1' else b_y_i;
   ds2_ln <= ln_b when mode_3G_B = '1' else ln_a;
 
-  vpid2_u : entity work.vpid_smpte
+  vpid2_u : vpid_smpte
   port map (
     clk       => clk,
     clk_en    => vpid_ins_ce,
