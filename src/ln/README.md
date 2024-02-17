@@ -15,7 +15,7 @@ Este módulo es puramente combinatorio y no tiene registros de retardo.
 
 ---------------------------------------------------------------------
 
-**Módulo de Detección y Formato de Transporte de Vídeo**
+## Detector de Líneas
 
 Este módulo examina un flujo de datos de alta definición (HD) y detecta el formato de transporte. Detecta todos los estándares de vídeo actualmente admitidos por SMPTE 292M-2006, además de los formatos de vídeo descritos en SMPTE RP 211. El módulo también puede utilizarse con un receptor 3G-SDI.
 
@@ -45,3 +45,5 @@ El módulo genera las siguientes salidas:
     - 1101: SMPTE 296M 1080p           60Hz    (Solo 3G-SDI nivel A)
     - 1110: SMPTE 296M 1080p           50Hz    (Solo 3G-SDI nivel B)
 - **ln_o:** Un código de 11 bits de número de línea que indica el número de línea actual. Este código cambia en el flanco de subida del reloj cuando tanto xyz como eav están afirmados. Esto permite que
+
+---------------------------------------------------------------------
