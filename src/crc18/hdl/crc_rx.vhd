@@ -1,7 +1,6 @@
 library ieee;
   use ieee.std_logic_1164.all;
 
-
 entity crc_rx is
   generic(
     DATA_W      : positive := 10;
