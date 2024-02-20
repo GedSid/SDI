@@ -42,3 +42,15 @@ Este módulo realiza la conversión de NRZ a NRZI en datos de 10 bits utilizando
 Cuando se implementa un codificador HD-SDI, la entrada `p_nrzi` del convertidor de croma debe estar conectada a `data_o(9)` del módulo de luma y la entrada `p_nrzi` del convertidor de luma debe estar conectada a la salida `i_nrzi` del convertidor de croma. Para SD, la entrada `p_nrzi` debe estar conectada a la salida `data_o(9)` de sí mismo.
 
 ---------------------------------------------------------------------
+
+## SDI Decoder
+
+El módulo decodificador SDI (`sdi_deco`) admite SD y HD.
+
+Este módulo sigue las normas que definen SDI (SMPTE 259M y SMPTE 292M), que especifica que la secuencia de bits serie se codifica de dos maneras. Primero, se utiliza un polinomio generador de *z^9+z^4+1* para generar una secuencia de bits NRZ. Luego, se emplea un polinomio generador de *z+1* para producir la secuencia NRZI final sin polaridad, que se transmite a través de la capa física.
+
+El módulo decodificador, ubicado al final del enlace SDI, revierte los dos pasos de codificación para extraer los datos originales. Primero, se utiliza el polinomio generador *z+1* para convertir la secuencia de bits de NRZI a NRZ. Luego, se utiliza el polinomio generador *z^9+z^4+1* para descifrar los datos.
+
+En el HD, se decodifican 20 bits en cada ciclo de reloj. En el SD, los 10 bits de datos SD-SDI deben colocarse en los 10 MSB del puerto `data_i`. Se decodifican diez bits en cada ciclo de reloj y los 10 bits decodificados se emiten en los 10 bits MS del puerto `data_o`.
+
+---------------------------------------------------------------------

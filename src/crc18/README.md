@@ -41,4 +41,12 @@ Este módulo realiza la conversión de NRZ a NRZI en datos de 10 bits utilizando
 
 Cuando se implementa un codificador HD-SDI, la entrada `p_nrzi` del convertidor de croma debe estar conectada a `data_o(9)` del módulo de luma y la entrada `p_nrzi` del convertidor de luma debe estar conectada a la salida `i_nrzi` del convertidor de croma. Para SD, la entrada `p_nrzi` debe estar conectada a la salida `data_o(9)` de sí mismo.
 
----------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+### Receptor CRC
+
+Este módulo calcula el valor CRC para una línea y lo compara con el valor CRC recibido. El módulo realiza esta operación tanto para los canales Y como para C. Si se detecta un error CRC, la salida correspondiente de error CRC se activa en alto. Esta salida permanece activada durante el tiempo de una línea de video, hasta que se realice la próxima verificación de CRC.
+
+Además, el módulo captura los valores del número de línea para los dos canales y los emite. Los valores del número de línea son válidos durante todo el tiempo de la línea.
+
+-------------------------------------------------------------------------------
